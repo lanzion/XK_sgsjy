@@ -1,0 +1,120 @@
+
+@import '~@/assets/css/scss/vars.scss';
+.breadcrumbs {
+    padding: 20px 0;
+}
+.listBox {
+    .category-box {
+        .select-region,
+        .select-school {
+            margin-right: 20px;
+            height: 32px;
+            width: 232px;
+        }
+    }
+    .totalNum {
+        width: 100%;
+        padding-right: 8px;
+        margin: 20px 0;
+        font-size: 14px;
+        line-height: 46px;
+        background-color: #fff;
+        box-sizing: border-box;
+        span {
+            color: #00a0e9;
+        }
+    }
+}
+.maker_ul {
+    margin-right: -20px;
+    .maker_li {
+        width: 386px;
+        height: 320px;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+        border-radius: $box-radiu;
+        transition: box-shadow .5s;
+        cursor: pointer;
+        &:hover {
+            box-shadow: $index-box-shadow;
+            .work_lis_msg_title {
+                color: #0da8ff;
+            }
+        }
+        .maker_li_personal {
+            padding: 20px 15px;
+            .maker_li_personal_face {
+                width: 75px;
+                height: 75px;
+                background-size: 100% 100%;
+                border-radius: 50%;
+            }
+            .maker_li_personal_msg {
+                padding-top: 5px;
+                margin-left: 20px;
+                line-height: 1.8;
+                .maker_li_personal_msg_name {
+                    font-size: 18px;
+                }
+                .maker_li_personal_msg_school {
+                    font-size: 14px;
+                    color: #bbb;
+                }
+            }
+        }
+        .maker_li_introduction {
+            height: 55px;
+            font-size: 14px;
+            word-wrap: break-word;
+            line-height: 1.5;
+        }
+        .maker_li_func {
+            height: 85px;
+            line-height: 90px;
+            text-align: center;
+            .maker_li_func_focus, .maker_li_func_message {
+                margin: 0 15px;
+                width: 88px;
+                height: 32px;
+                border: 1px solid #dfdfdf;
+                border-radius: 5px;
+                line-height: 1;
+            }
+            .maker_li_func_focus {
+                background-color: $theme-color;
+                border: 1px solid $theme-color;
+                color: #fff;
+                &:hover {
+                    background-color: $theme-color;
+                    border-color: $theme-color;
+                    color: #fff;
+                }
+            }
+            .maker_li_func_message {
+                &:hover {
+                    border-color: $theme-color;
+                    color: $theme-color;
+                }
+            }
+        }
+        .maker_li_countsUl {
+            height: 40px;
+            .maker_li_countsLi {
+                text-align: center;
+                .maker_li_countsLi_num {
+                    font-size: 14px;
+                    margin-bottom: 10px;
+                }
+                .maker_li_countsLi_name {
+                    font-size: 12px;
+                    color: #bbb;
+                }
+                & + .maker_li_countsLi {
+                    height: 40px;
+                    border-left: 1px solid #dfdfdf;
+                }
+            }
+        }
+    }
+}

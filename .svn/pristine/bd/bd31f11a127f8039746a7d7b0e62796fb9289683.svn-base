@@ -1,0 +1,70 @@
+@import './vars.scss';
+.listBox {
+    .searchBox {
+        padding: 10px 0;
+        /* border-bottom: 1px solid #D3D3D3; */
+    }
+}
+
+.list-item__box {
+	&:hover {
+	    img,
+	    .bg-img__wrap {
+		    transform: scale(1.1);
+		}
+		.btn-box{
+			display: block!important;
+		}
+	}
+	.list-item-img__box {
+	    position: relative;
+	    width: 100%;
+    	background-size: cover;
+    	background-position: center;
+	    overflow: hidden;
+    	background-color: #fff;
+	    img,
+	    .bg-img__wrap {
+		    width: 100%;
+		    height: 206px;
+		    transition: transform .5s;
+		}
+		.btn-box {
+			position: absolute;
+			display: none;
+			top: 0;
+			left: 0;
+			padding: 5px;
+			width: 100%;
+			box-sizing:border-box;
+			button {
+				font-size: 12px;
+				min-width: 54px;
+				height: 22px;
+				line-height: 22px;
+				border:none;
+				background-color: #fff;
+				border-radius: 3px;
+				strong {
+					font-size: 14px;
+				}
+			}
+			button:hover {
+				background-color: nth($default-color, 1);
+				color: #fff;
+			}
+		}
+	}
+  .about {
+    background-color: #fff;
+    padding: 0 10px 10px;
+  }
+	.list-item-title {
+		font-size: 14px;
+		line-height: 2;
+	}
+	.list-item-count {
+		color: #999;
+		font-size: 0;
+	}
+}

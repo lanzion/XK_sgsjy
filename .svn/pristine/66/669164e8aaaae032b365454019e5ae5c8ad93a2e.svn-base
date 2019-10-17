@@ -1,0 +1,283 @@
+.top-tips {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  line-height: 2.5;
+  border-top: 1px solid #ecc849;
+  background-color: #ffe793;
+  text-align: center;
+  z-index: 100000;
+}
+
+.top-tips a {
+  color: #0088ff;
+}
+
+.clear {
+  clear: both;
+}
+
+.clearfix {
+  *zoom: 1;
+}
+
+.clearfix:after {
+  content: "";
+  height: 0;
+  display: block;
+  clear: both;
+  visibility: hidden;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.pr {
+  position: relative;
+}
+
+.pa {
+  position: absolute;
+}
+
+.circle {
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+}
+
+.container {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.adminSpace_container {
+  position: relative;
+  padding: 0 18%;
+  margin: 0 auto;
+  background: #f4f4f4;
+}
+
+.empty-block,
+.isNull-list,
+.no-data {
+  width: 100%;
+  height: 250px;
+  line-height: 30;
+  font-size: 14px;
+  background: url('./../images/nothingData.svg') center no-repeat;
+  text-align: center;
+  color: #999;
+}
+
+.breadcrumbs {
+  padding: 20px 0;
+}
+
+.isNull-list {
+  border: 1px solid #eee;
+}
+
+.load-more {
+  width: 100%;
+  margin-top: -1px;
+  font-size: 14px;
+  line-height: 3;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  text-align: center;
+}
+
+.load-more:hover {
+  background-color: #e6e6e6;
+}
+
+.mb200 {
+  margin-bottom: 200px;
+}
+
+.el-rate__icon {
+  margin-right: 2px;
+  font-size: 12px;
+}
+
+.table-layout {
+  display: table;
+  width: 100%;
+}
+
+.table-cell {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.popper-dialog {
+  padding: 0;
+}
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.backend-content__middle {
+  padding: 20px;
+  background-color: #fff;
+}
+
+.unSelectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.classify-box {
+  margin: 30px 0 0;
+}
+
+.screeningBox {
+  /*border: 1px solid #C9C9C9;*/
+  padding: 15px;
+  background-color: #fff;
+}
+.screeningBox > .category-box:last-child {
+  margin-bottom: 0;
+}
+
+.tabs {
+  margin-top: 20px;
+}
+
+.verticle-middle {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%); /* IE 9 */
+  -webkit-transform: translate(0, -50%); /* Safari and Chrome */
+  -o-transform: translate(0, -50%); /* Opera */
+  -moz-transform: translate(0, -50%); /* Firefox */
+}
+
+.bg-img__box {
+  overflow: hidden;
+}
+.bg-img__wrap {
+  background-size: cover;
+  background-position: center;
+}
+
+/*状态显示角标*/
+.status-label {
+  width: 55px;
+  height: 55px;
+  background-color: rgba(0, 0, 0, 0);
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.status-label p {
+  box-sizing: border-box;
+  width: 80px;
+  height: 39px;
+  position: absolute;
+  top: -5px;
+  left: -26px;
+  line-height: 35px;
+  padding-top: 8px;
+  text-align: center;
+  color: #fff;
+  transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg); /* IE 9 */
+  -moz-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg); /* Safari and Chrome */
+}
+
+/*角标颜色*/
+.status-label .doing{   /*活动进行中*/
+    background-color: #00a0e9;
+}
+.status-label .begin{  /*活动未开始*/
+    background-color: #46c475;
+}
+.status-label .end{   /*活动已结束*/
+    background-color: #c9c9c9;
+}
+.status-label .submit{  /*审核状态-待提交*/
+    background-color: #e5e9f1;
+    color: #333;
+}
+.status-label .pending{  /*审核状态-待审核*/
+    background-color: #dc8baa;
+}
+.status-label .audit{  /*审核状态-审核中*/
+    background-color: #2697ee;
+}
+.status-label .no-pass{  /*审核状态-不通过*/
+    background-color: #ff4848;
+}
+
+.bg-gray {
+  background: #f3f3f3;
+}
+
+/*白背景色*/
+.bgc_w, .bgw {
+  background-color: #fff !important;
+}
+.bg_gray {
+  background-color: #eee !important;
+}
+
+.mt50 {
+  margin-top: 50px;
+}
+
+.dpd15 {
+    padding: 5px 15px 15px;
+}
+
+/* 隐藏播放器的下载按钮 */
+video::-internal-media-controls-download-button {
+    display:none;
+}
+
+video::-webkit-media-controls-enclosure {
+    overflow:hidden;
+}
+
+video::-webkit-media-controls-panel {
+    width: calc(100% + 30px);
+}
+
+/* 面包屑 */
+.navigation {
+  font-size: 13px;
+  padding: 20px 0;
+}
+
+/* 文字两边撑开 */
+.text-justify {
+  text-align:justify;
+  text-align-last:justify;
+}
+
+.break-word {
+  word-wrap: break-word;
+}
+
+.ml10 {
+  margin-left: 10px;
+}

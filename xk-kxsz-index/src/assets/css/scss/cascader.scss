@@ -1,0 +1,46 @@
+@import './vars.scss';
+$category-title-width: 5.5em;
+$category-item-margin: 15px;
+.category-box {
+    width: 100%;
+    // margin-bottom: $category-item-margin;
+    font-size: 14px;
+    line-height: 2;
+
+    & + .category-box {
+        margin-top: $category-item-margin;
+    }
+
+    .category-title {
+        float: left;
+        width: $category-title-width;
+        font-weight: normal;
+        color: #999;
+        .cate-tit {
+            display: inline-block;
+            width: 56px;
+            margin-right: 5px;
+            text-align:justify;
+            text-align-last:justify;
+        }
+    }
+    .category-list {
+        margin-left: $category-title-width;
+    }
+
+    .category-list-item {
+        float: left;
+        padding: 0 1em;
+        margin-right: 8px;
+        font-size: 14px;
+        line-height: 2;
+        cursor: pointer;
+        &:hover {
+            color: nth($default-color, 1);
+        }
+        &.active {
+            background-color: nth($default-color, 1);
+            color: #fff;
+        }
+    }
+}

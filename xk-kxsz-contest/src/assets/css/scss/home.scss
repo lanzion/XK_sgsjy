@@ -1,0 +1,103 @@
+@import '~@/assets/css/scss/vars.scss';
+.informationBar {
+    .title {
+        font-size: 20px;
+        line-height: 3em;
+        color: #454545;
+        .title_sub {
+            font-size: 12px;
+            padding-left: 10px;
+            vertical-align: baseline;
+        }
+    }
+}
+.title_nav {
+    margin: 16px 0;
+    height: 34px;
+    line-height: 34px;
+    font-size: 14px;
+    background-color: #fff;
+    box-sizing: border-box;
+    .title_nav_link {
+        display: inline-block;
+        padding: 0 20px;
+        border-right: 1px solid #f4f4f4;
+        height: inherit;
+        line-height: inherit;
+        text-align: center;
+        &:hover {
+            color:nth($default-color, 1);
+        }
+        &.active {
+            background-color:nth($default-color, 1);
+            color: #fff;
+        }
+    }
+}
+.org-homepage {
+    $padding: 16px;
+    .content_l,
+    .content_r {
+        padding: 0;
+    }
+    .content_l {
+        float: left;
+        width: 75%;
+    }
+    .content_r {
+        float: right;
+        width: 23.5%;
+    }
+    .homepage-model {
+        padding: 0 0 8px;
+        background-color: #fff;
+
+        & + .homepage-model {
+            margin-top: 20px;
+        }
+        .homepage-model-title {
+            height: 42px;
+            padding: 0 $padding;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #D5D5D5;
+            box-sizing: border-box;
+            line-height: 42px;
+            color: #3e3e3e;
+            font-size: 16px;
+            font-weight: normal;
+        }
+        .homepage-model-content {
+            line-height: 1.5;
+            padding: 0 $padding;
+            text-indent: 2em;
+            text-align: justify;
+        }
+        .statistical_ul {
+            padding: 0 $padding;
+            .statistical_li {
+                line-height: 3em;
+                vertical-align: middle;
+                i {
+                    display: inline-block;
+                    width: 20px;
+                    height: 20px;
+                    font-size: 14px;
+                }
+                p {
+                    /* float: left; */
+                    display: inline-block;
+                    font-size: 14px;
+                }
+            }
+        }
+        .tabs-bar-header {
+            margin-bottom: 10px;
+        }
+        .person-list-wrapper {
+            padding: 0 $padding;
+        }
+        #list {
+            padding: 0 16px;
+        }
+    }
+}

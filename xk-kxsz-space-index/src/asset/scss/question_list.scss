@@ -1,0 +1,61 @@
+.question-container {
+  margin-top: 26px;
+  .question-list {
+    padding-bottom: 40px;
+    counter-reset: question;
+    .question-item {
+      position: relative;
+      height: 110px;
+      border-bottom: 1px dashed #c9c9c9;
+      font-size: 14px;
+      .question {
+        line-height: 1.3;
+        &:before {
+          counter-increment: question;
+          content: counter(question) "、"
+        }
+      }
+      .answers {
+        margin-top: 20px;
+        counter-reset: answer;
+      }
+      .answer {
+        display: inline-block;
+        min-width: 88px;
+        margin-right: 28px;
+        &:before {
+          counter-increment: answer;
+          content: counter(answer, upper-alpha);
+          display: inline-block;
+          width: 26px;
+          height: 26px;
+          line-height: 26px;
+          margin-right: 10px;
+          border-radius: 5px;
+          text-align: center;
+          background-color: #c9c9c9;
+        }
+        &.correct:before {
+          color: #fff;
+          background-color: #2bbc61;
+        }
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+      .true-or-false .answer {
+        &.first:before {
+          content: '对'
+        }
+        &.second:before {
+          content: '错'
+        }
+      }
+    }
+  }
+}
+
+
+
+
+

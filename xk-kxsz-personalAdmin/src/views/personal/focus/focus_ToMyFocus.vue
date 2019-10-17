@@ -1,0 +1,345 @@
+<template>
+    <section id="myAdminFocus">
+        <!-- 头部功能 -->
+        <header class="title clearfix">
+            <div class="title_l fl">
+                <!-- 全选 -->
+                <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange" class="checkbox"></el-checkbox>
+                <!-- 批量设置分组 -->
+                <button type="button" class="btn" @click="setClassify()">批量设置分组</button>
+                <!-- 批量取消关注 -->
+                <button type="button" class="btn" @click="friendAdd()">批量关注</button>
+                <!-- 批量拉黑 -->
+                <button type="button" class="btn" @click="shielding()">批量拉黑</button>
+            </div>
+            <!-- 选择分组 -->
+            <div class="title_r fr">
+                <el-select v-model="classify.value" placeholder="请选择分组" class="fl">
+                    <el-option :label="'全部'" :value="''"></el-option>
+                    <el-option v-for="item in classify.options" :key="item.id" :label="item.groupName" :value="item.id"></el-option>
+                </el-select>
+                <button type="button" class="func_l_btn" @click="classifyPopup = true">添加分类</button>
+            </div>
+            <!-- 管理分组弹窗 -->
+            <el-dialog title="管理分类" :visible.sync="classifyPopup" size="tiny" class="classify" :before-close="clearModifyIndex">
+                <v-groupManage :classify="classify" :groupType="groupType" @getClassifyData="getClassifyData" ref='groupManage'></v-groupManage>
+            </el-dialog>
+        </header>
+        <!-- 列表 -->
+        <el-checkbox-group v-model="checkedList" size="large" @change="handlecheckedListChange">
+            <ul class="focus_ul" v-if="listDate.length">
+                <li v-for="(item, index) in listDate" :key="index" class="focus_li clearfix">
+                    <span class="focus_li_box"><el-checkbox :label="item"></el-checkbox></span>
+                    <img @click="toPersonDetail(item)" :src="getFileUrl(item.face) || faceDefault" class="member-item-head circle"/>
+                    <div class="focus_li_content">
+                        <div>
+                            <a @click="toPersonDetail(item)">
+                                <span class="name"> {{item.userName}} </span>
+                            </a>
+                            <span style="color: #c9c9c9;"> {{item.identity | professional}} </span>
+                        </div>
+                        <div>
+                            <span> {{item.schoolName}} </span>
+                        </div>
+                        <div>
+                            <span> 分组: {{ item.groupName ? item.groupName : '全部' }} </span>
+                        </div>
+                        <div class="follow_mes">
+                            关注: {{item.mefollowCount}} &nbsp;&nbsp;|&nbsp;&nbsp; 粉丝: {{item.followMeCount}}
+                        </div>
+                    </div>
+                    <div class="btn_group fr">
+                        <button type="button" :disabled="item.blackList == 1" v-bind:class="{ 'btn': item.blackList == 0, 'blackList-btn': item.blackList == 1 }" @click="setClassify(item)">设置分组</button>
+                        <button type="button" :disabled="item.blackList == 1" v-bind:class="{ 'btn': item.blackList == 0, 'blackList-btn': item.blackList == 1 }" @click="showPrivateLetterDialog(item.userId)">发私信</button>
+                        <button type="button" :disabled="item.blackList == 1" v-bind:class="{ 'btn': item.blackList == 0, 'blackList-btn': item.blackList == 1 }" @click="friendAdd(item)">关注</button>
+                        <button type="button" class="btn" @click="shielding(item)"><span v-if="item.blackList == 1">取消</span>拉黑</button>
+                    </div>
+                </li>
+            </ul>
+            <div v-else class="empty-block">暂无关注我的</div>
+        </el-checkbox-group>
+        <v-pagination :param.sync="pageParam" :changePage="changePage"></v-pagination>
+        <el-dialog title="设置分组" :visible.sync="setClassifyPopup" size="tiny" class="setClassify" :lock-scroll="true">
+            <div class="setClassify_name">
+                人员：
+                <el-input v-model="setClassifyString" placeholder="请输入内容" style="width:80%;"></el-input>
+            </div>
+            <div class="setClassify_group">
+                分组：
+                <el-select v-model="setClassifyId" placeholder="请选择分组" style="width:80%;margin-top:20px;">
+                    <el-option v-for="item in classify.options" :key="item.id" :label="item.groupName" :value="item.id"></el-option>
+                </el-select>
+            </div>
+            <div class="button_group">
+                <button type="button" class="btn1" @click="setClassify">取消</button>
+                <button type="button" class="btn2" @click="saveClassify">保存</button>
+            </div>
+        </el-dialog>
+        <send-private-letter v-if="dialog.isVisible" :dialog="dialog" />
+    </section>
+</template>
+
+<script>
+import { focusList, addGroup, groupList, groupModify, setGroup, addFriend, shieldingFriend } from '@/service/my.js'
+import pagination from 'Common/pagination.vue'
+import del from 'Common/del_popover.vue'
+import groupManageDialog from 'components/focus/groupManage_dialog.vue'
+import sendPrivateLetter from '@/components/dialog/send_private_letter_dialog.vue'
+import { privateLetter } from '@/mixin/teacherAndStudent.js'
+
+export default {
+    data() {
+        return {
+            dialog: { isVisible: false },
+            checkAll: true, // 是否选中全部
+            checkedList: [], // 选中列表
+            listDate: [],   // 列表数据
+            isIndeterminate: true, // 实现全选状态
+            pageParam: { // 分页
+                pageSize: 10,
+                pageNum: 1,
+                totalNum: 1
+            },
+            //  分类列表/值
+            classify: {
+                options: [],
+                value: ''
+            },
+            delClassify: {  // 删除分类
+                name: '分类',
+                url: '/maker/follow/group/del',
+                params: {
+                    id: null
+                }
+            },
+            classifyPopup: false, // 分类弹框开关
+            modifyIndex: null, // 修改分类信息
+            modifyName: null,
+            modifyId: null,
+            // 设置分组弹框
+            setClassifyPopup: false,
+            setClassifyString: '',
+            setClassifyId: '',
+            // 分组类别 ， 1:我关注的 2:关注我的 3:我的好友
+            groupType: 2
+        }
+    },
+    mixins: [privateLetter],
+    methods: {
+        // 关闭分组弹框清理
+        clearModifyIndex() {
+            this.classifyPopup = false
+            if (this.classify.options[0].name === '' || this.classify.options[0].id === '') {
+                this.classify.options.shift()
+            }
+            this.$refs.groupManage.modifyIndex = null
+            this.$refs.groupManage.modifyName = null
+            this.$refs.groupManage.ifAddStutas = false
+        },
+        // 批量拉黑
+        shielding(item) {
+            const paramData = []
+            let msg = '已拉黑'
+            if (item !== undefined) {
+                msg = item.blackList === 1 ? '已取消拉黑' : '已拉黑'
+                paramData.push({ id: item.id, blackList: item.blackList === 1 ? 0 : 1 })
+            } else {
+                this.checkedList.forEach(i => paramData.push({ id: i.id, blackList: i.blackList === 1 ? 0 : 1 }))
+            }
+            if (paramData.length) {
+                shieldingFriend(paramData).then((res) => {
+                    if (res.data.code === 200) {
+                        this.getFocusList()
+                        this.$message({
+                            message: msg,
+                            type: 'success'
+                        })
+                    }
+                })
+                this.checkedList.splice(0, this.checkedList.length)
+                this.checkAll = false
+            } else {
+                this.$message({ message: '您未选中拉黑对象' })
+            }
+        },
+        // 批量关注好友
+        friendAdd(item) {
+            const paramData = []
+            if (item !== undefined) {
+                paramData.push({ followUser: this.$ls.get('loginUId'), followedUserId: item.userId, followGroup: item.followGroup })
+            } else {
+                this.checkedList.forEach(i => paramData.push({ followUser: this.$ls.get('loginUId'), followedUserId: i.userId, followGroup: i.followGroup }))
+            }
+            if (paramData.length) {
+                addFriend(paramData).then((res) => {
+                    if (res.data.code === 200) {
+                        this.getFocusList()
+                        this.$message({
+                            message: '关注成功',
+                            type: 'success'
+                        })
+                    } else if (res.data.code === 202) {
+                        this.$message({ message: '该用户已经是好友啦' })
+                    }
+                })
+                this.checkedList.splice(0, this.checkedList.length)
+                this.checkAll = false
+            } else {
+                this.$message({ message: '您未选中关注对象' })
+            }
+        },
+        // 保存分组
+        saveClassify() {
+            const paramData = []
+            this.checkedList.map((i) => {
+                paramData.push({ id: i.id, followGroup: this.setClassifyId })
+            })
+            setGroup(paramData).then((res) => {
+                if (res.data.code) {
+                    this.getFocusList()
+                    this.$message({
+                        message: '设置成功',
+                        type: 'success'
+                    })
+                    this.setClassifyPopup = false
+                    this.checkAll = false
+                    this.checkedList.splice(0, this.checkedList.length)
+                }
+            })
+        },
+        // 设置分组
+        setClassify(item) {
+            if (this.checkedList.length !== 0 || item) {
+                this.setClassifyPopup = !this.setClassifyPopup
+                if (this.setClassifyPopup) {
+                    if (item !== undefined) {
+                        this.checkedList.splice(0, this.checkedList.length, item)
+                    }
+                    let arrName = this.checkedList.map(i => i.userName)
+                    this.setClassifyString = arrName.join(',')
+                    arrName = null
+                } else {
+                    this.checkedList.splice(0, this.checkedList.length)
+                    this.checkAll = false
+                }
+            } else {
+                this.$message({ message: '您未选中分组对象' })
+            }
+        },
+        // 选择全部
+        handleCheckAllChange(event) {
+            this.checkedList = event.target.checked ? [...this.listDate] : []
+            this.isIndeterminate = false
+        },
+        // 单个选择
+        handlecheckedListChange(value) {
+            const checkedCount = value.length
+            this.checkAll = checkedCount === this.listDate.length
+            this.isIndeterminate = checkedCount > 0 && checkedCount < this.listDate.length
+        },
+        // 请求列表数据
+        getFocusList() {
+            const param = {
+                followedUserId: this.$ls.get('loginUId'),
+                followGroup: this.classify.value,
+                userName: this.search
+            }
+            focusList(param, this.pageParam).then((res) => {
+                if (res.data.entity) {
+                    this.listDate = res.data.entity.resultData
+                    this.$set(this.pageParam, 'totalNum', res.data.entity.totalNum)
+                    this.$emit('totalNum', res.data.entity.totalNum)
+                }
+            })
+        },
+        // 分页改变
+        changePage(val) {
+            this.$set(this.pageParam, 'pageNum', val)
+            this.getFocusList()
+        },
+        // 分组管理
+        // 设置删除信息
+        del(id) {
+            this.delClassify.params.id = id
+        },
+        // 分类管理 - 添加分类
+        addClassify() {
+            addGroup({ groupType: this.groupType, groupName: '新建分类' }).then((res) => {
+                if (res.data.code === 200) {
+                    this.classify.options.unshift({ name: '新建分类', id: res.data.entity })
+                    this.modifyIndex = 0
+                    this.modifyId = res.data.entity
+                }
+            })
+        },
+        // 分类管理 - 分类列表
+        getClassifyData() {
+            groupList({ userId: this.$ls.get('loginUId'), groupType: this.groupType }).then((res) => {
+                if (res.data.entity) {
+                    this.classify.options = res.data.entity
+                }
+            })
+        },
+        // 获取修改焦点
+        modifyParam(id, index, name) {
+            this.modifyName = name
+            this.modifyIndex = index
+            this.modifyId = id
+        },
+        // 分类管理 - 修改分类
+        modifyClassify(index) {
+            groupModify({ groupType: this.groupType, id: this.modifyId, groupName: this.modifyName }).then((res) => {
+                if (res.data.code === 200) {
+                    this.classify.options[index].groupName = this.modifyName
+                    this.modifyName = null
+                    this.modifyIndex = null
+                    this.modifyId = null
+                }
+            })
+        }
+    },
+    mounted() {
+        this.getFocusList()
+        this.getClassifyData()
+    },
+    props: {
+        search: {
+            type: String,
+            default: ''
+        }
+    },
+    computed: {
+        params: function () {
+            return Object.assign({},
+                { search: this.search },
+                { type: this.classify.value }
+            )
+        }
+    },
+    watch: {
+        params: {
+            handler: function () {
+                this.getFocusList()
+            }
+        }
+    },
+    components: {
+        'v-pagination': pagination,
+        'v-del': del,
+        'v-groupManage': groupManageDialog,
+        sendPrivateLetter
+    },
+    filters: {
+        professional(txt = '') {
+            return txt === '0' ? '学生 | 兴趣' : '教师 | 任教'
+        }
+    }
+}
+</script>
+
+<style lang='scss' scoped>
+@import '~@/assets/css/scss/myAdminFocus.scss';
+#myAdminFocus{
+    padding: 0px 15px 15px;
+}
+</style>

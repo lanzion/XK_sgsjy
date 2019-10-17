@@ -1,0 +1,352 @@
+// 后台管理主体内容
+$serach-input-width: 210px;
+$serach-input-height: 32px;
+$border-color: #dfe6ec;
+
+.backend-content__middle, .datadict {
+    margin-bottom: 20px;
+
+    &.backend-content__module {
+        margin-bottom: 16px;
+    }
+
+    .option-box {
+        margin-bottom: 16px;
+    }
+    .bs-search-input {
+        width: $serach-input-width;
+    }
+    .bs-search-button,
+    .bs-search-input + .bs-search-input,
+    .bs-form-button + .bs-form-button,
+    .bs-handle-button + .bs-handle-button {
+        margin-left: 10px;
+    }
+    .bs-search-button,
+    .bs-form-button,
+    .bs-handle-button {
+        height: $serach-input-height;
+        line-height: $serach-input-height;
+        box-sizing: border-box;
+    }
+    .bs-form-button {
+        padding: 0 1.5em;
+    }
+    .bs-search-button {
+        padding: 8px 1.5em;
+        line-height: 1;
+        vertical-align: top;
+    }
+    .bs-handle-button {
+        padding: 0 1em;
+    }
+    .bs-screening-button {
+        width: 90px;
+        height: 32px;
+        position: relative;
+        border: 1px solid $border-color;
+        margin-left: 10px;
+        background-color: #fff;
+        &::before {
+            content: '高级搜索';
+            width: 100%;
+            position: absolute;
+            left: 50%;
+            margin-left: -50%;
+            // transform: translateX(-50%);
+            top: 0;
+        }
+    }
+    .option-box,
+    .bs-screening_box {
+        .el-form-item {
+            margin-bottom: 0;
+        }
+    }
+    .bs-screening_box {
+        padding: 10px;
+        border: 1px solid #e8e8e8;
+    }
+    .bs-screening_wrap {
+        margin-top: -1px;
+        box-shadow: 0 1px 3px #e8e8e8;
+        .bs-screening_box {
+            padding: 14px;
+            border: 1px solid $border-color;
+        }
+    }
+    .bs-screening-btn {
+        border: 1px solid #e8e8e8;
+        border-top: none;
+        height: 40px;
+        line-height: 40px;
+        font-size: 14px;
+        margin: 0 auto;
+        text-align:center;
+        color: #e2e2e4;
+        button {
+            border: none;
+            color: #2797ed;
+        }
+    }
+    .audit-record{
+        .el-dialog{
+            min-width: 670px;
+        }
+    }
+    // 图片上传
+    .cover {
+        display: block;
+        width: 100px;
+        height: 100px;
+    }
+    .upload-tip{
+        font-size: 12px;
+    }
+    .cover-uploader:not(.cover-uploader__eval) {
+        position: relative;
+        height: 100px;
+        border: 1px dashed #92cdfa;
+        background-color: #f5fafe;
+        cursor: pointer;
+        overflow: hidden;
+        .cover-uploader-icon {
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            font-size: 18px;
+            color: #666;
+            text-align: center;
+        }
+    }
+    .tips {
+        position: absolute;
+        left: 120px;
+        width: 400px;
+        height: 100px;
+        line-height: 2;
+        font-size: 12px;
+        padding-top: 20px;
+    }
+    .upload-btn{
+        display: inline-block;
+        width: 90px;
+        height: 38px;
+        line-height: 38px;
+        margin-right: 10px;
+        border: 1px solid #c9c9c9;
+        border-radius: 2px;
+        i{
+            color: #2797ed;
+        }
+    }
+    // 图片上传结束
+    .isDropdowm {
+        height: 42px;
+        margin-bottom: -1px;
+        color: #2797ed;
+        border-bottom-color: #fff;
+        // &::after {
+        //     content: '';
+        //     position: absolute;
+        //     bottom: -2px;
+        //     left: 0;
+        //     height: 8px;
+        //     width: 100%;
+        //     background-color: #fff;
+        // }
+    }
+    .hide {
+        display: none;
+    }
+
+    .bs-btn-group {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: -1px;
+        border: 1px solid $border-color;
+        box-sizing: border-box;
+        font-size: 0;
+        text-align: right;
+    }
+    .type-btn-group {
+        .bs-btn-group {
+            border: 0;
+        }
+    }
+    .back-stage-table {
+        &.el-table {
+            .el-table__header {
+                border-collapse: initial;
+            }
+
+            &,
+            & td,
+            & th.is-leaf {
+                border-color: $border-color;
+            }
+            &::after,
+            &::before {
+                background-color: $border-color;
+            }
+            .cell {
+                text-align: center;
+                white-space: nowrap;
+
+                img {
+                    width: 40px;
+                    height: 40px;
+                    margin: 4px 0;
+                    vertical-align: top;
+                }
+            }
+            .is-left {
+                .cell {
+                    text-align: left;
+                }
+            }
+            .item-detail {
+                color: #2797ed;
+                cursor: pointer;
+            }
+        }
+    }
+    // 资源名称的颜色
+    .resource-name{
+        &,
+        a,
+        [class^="icon-btn-"],
+        [class*=" icon-btn-"] {
+            color: #2797ed;
+        }
+    }
+}
+.backend-module__title {
+    height: 42px;
+    line-height: 42px;
+    padding: 0 12px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #ccc;
+    font-size: 18px;
+    font-weight: bold;
+}
+.backend-module__tabs .tabs-title{
+    font-size: 18px;
+}
+.submit-form {
+    .el-select,
+    .el-cascader {
+        width: 100%;
+    }
+    .el-textarea__inner {
+        height: 7em;
+    }
+}
+.bs-d-btn-group {
+    text-align: right;
+}
+
+$menu-tree-width: 28%;
+$box-margin: 16px;
+$box-padding: 14px;
+.back-stage__container .menu-cell {
+    height: 800px;
+    vertical-align: top;
+
+    .type-btn-group {
+        border: 0;
+        border-bottom: 1px solid #ebf2f4;
+        background-color: #fbfbfb;
+    }
+
+    .el-tree {
+        position: absolute;
+        top: 109px;
+        left: $box-padding;
+        right: $box-padding;
+        bottom: $box-padding;
+        border: 0;
+        overflow: auto;
+
+        .el-tree-node__label.unActive {
+            color: #aaa;
+        }
+        [class^="icon-btn-"], [class*=" icon-btn-"] {
+            margin-right: 10px;
+            font-size: 14px;
+            &:hover {
+                color: #666;
+            }
+        }
+    }
+    .menu-title {
+        font-size: 16px;
+        line-height: 42px;
+        text-indent: .5em;
+        border-bottom: 1px solid #ebf2f4;
+    }
+    &.menu-tree {
+        position: relative;
+        width: $menu-tree-width;
+        vertical-align: top;
+        box-sizing: border-box;
+    }
+}
+.menu-content {
+    padding-left: $box-margin;
+
+    .backend-content__middle {
+        height: 100%;
+    }
+}
+
+#admin {
+    .title-header,
+    .tabs-bar-header {
+        margin-bottom: 16px;
+    }
+
+    .table-layout {
+        margin-bottom: 16px;
+
+        .backend-content__module {
+            padding: 14px;
+            box-sizing: border-box;
+            border-radius: 5px;
+            background-color: #fff;
+
+            & + .backend-content__module {
+                margin-left: 14px;
+            }
+        }
+    }
+}
+.small-module {
+    width: 32%;
+    padding-left: 16px;
+}
+.third-module {
+    width: 34%;
+    & + .third-module {
+        padding-left: 16px;
+    }
+}
+.echart {
+    box-sizing: border-box;
+    height: 350px;
+
+    .backend-content__module {
+        height: 100%;
+    }
+}
+.back-stage__container {
+    .echarts {
+        width: 100%;
+        height: 100%;
+    }
+}
+.audit-record-dialog {
+    .el-dialog {
+        min-width: 800px
+    }
+}

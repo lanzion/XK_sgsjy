@@ -1,0 +1,21 @@
+.aboutlist {
+    width: 100%;
+    /* box-sizing: border-box; */
+    padding: 0;
+    margin: 0 !important;
+    .list-item__box {
+        border-bottom: 1px solid #DDD;
+        .aboutlist_img {
+            display: inline-block;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            list-style: none;
+            overflow: hidden;
+            width: 100%;
+            img {
+                width: 100%;
+                height: 206px;
+            }
+        }
+    }
+}

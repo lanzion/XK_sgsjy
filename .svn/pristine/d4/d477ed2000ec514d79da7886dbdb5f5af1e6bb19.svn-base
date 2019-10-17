@@ -1,0 +1,9 @@
+// 后台管理头部及导航
+$header-height: 66px;
+$breadcrumb-height: 40px;
+$nav-width: 230px;
+$nav-bc: #364760;
+$folder-bc-active: #0594e8;
+$item-bc-active: #365374;
+$content-box-margin: 16px;
+$content-box-padding: 14px;

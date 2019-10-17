@@ -1,0 +1,56 @@
+@keyframes translateRight
+  from
+    opacity: 0
+    transform: translateX(-230px)
+  to
+    opacity: 1
+    transform: translateX(0)
+
+@keyframes rotate
+  0%
+    transform: rotate(0)
+  100%
+    transform: rotate(720deg)
+
+@keyframes rotateAntiClock
+  0%
+    transform: rotate(0)
+  100%
+    transform: rotate(-720deg)
+
+@keyframes circleFadeOut
+  0%
+    transform: scale(1)
+    opacity: 1
+  100%
+    transform: scale(2)
+    opacity: 0
+
+@keyframes growthAndShrink
+  0%
+    transform: scale(.1) rotate(0)
+    opacity: 0
+  100%
+    transform: scale(1.3) rotate(360deg)
+    opacity: 1
+
+@keyframes slideDown
+  0%
+    transform: translateY(-50px)
+  100%
+    transform: translateY(0)
+
+@keyframes mouseMove
+  0%
+    transform: translateX(0)
+    opacity: 1
+  25%
+  75%
+  95%
+    opacity: 0
+  50%
+    transform: translateX(-30px)
+    opacity: 1
+  100%
+    transform: translateX(0)
+    opacity: 1
