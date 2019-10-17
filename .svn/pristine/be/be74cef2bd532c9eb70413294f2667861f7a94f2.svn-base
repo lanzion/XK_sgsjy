@@ -1,4 +1,0 @@
-@import "./css/common.css";
-@import "./css/reset.css";
-@import "./css/animate.min.css";
-@import "./stylus/index.styl";

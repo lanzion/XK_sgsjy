@@ -1,3 +1,0 @@
-@import './static/css/reset.css';
-@import './static/css/common.css';
-@import 'vars.scss';
