@@ -17,7 +17,7 @@
             <!-- <el-upload class="cover-uploader" :show-file-list="false" action :before-upload="UploadCover" style="display: inline-block;">
                             <img v-if="form.pic&&form.pic!=''" :src="getFileUrl(form.pic)" class="cover">
                             <i v-else class="el-icon-plus cover-uploader-icon"></i>
-            </el-upload>-->
+            </el-upload> -->
           </el-col>
           <div
             class="tips"
@@ -107,9 +107,10 @@ import {
 } from "@/service/admin_space.js";
 // import dataTranslation from 'Asset/js/dataTranslation.js'
 const fileUploadAddress = location.protocol + '//' + location.host
+import "Asset/js/initWebUpload.js"
 export default {
   name: "addInfo",
-  mixins: [uploadFileSize, editor],
+  mixins: [uploadFileSize, editor ],
   components:{
       "v-up-files": upFiles,
   },
@@ -326,7 +327,7 @@ export default {
               businessId: x.businessId
             }));
           if(_data.pic){
-            let url = fileUploadAddress +_data.pic
+            let url = fileUploadAddress+'/' +_data.pic
             $('#v_picker').css({
             'background-color':'none',
             "background-image":'url('+url+')'

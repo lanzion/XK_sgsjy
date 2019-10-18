@@ -26,9 +26,9 @@ Vue.prototype.listDefault = listDefault
 Vue.prototype.pages = pages
 
 Vue.use(ElementUI)
-
+const fileUploadAddress = location.protocol + '//' + location.host
 Vue.prototype.downloadItem = function (url, name) {
-  Axios.get(url, { responseType: 'blob' })
+  Axios.get(fileUploadAddress+url, { responseType: 'blob' })
       .then(({ data }) => {
           // 为了简单起见这里blob的mime类型 固定写死了
           let blob = new Blob([data], { type: 'application/vnd.ms-excel' })

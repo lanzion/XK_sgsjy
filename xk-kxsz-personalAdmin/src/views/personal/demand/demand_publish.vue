@@ -5,7 +5,7 @@
             <el-row>
                 <el-form-item label="标题" prop='name'>
                     <el-col :span="9">
-                        <el-input placeholder="请输入需求标题，不超过30字" v-model.trim="form.name" :maxlength="30"></el-input>
+                        <el-input :disabled="!aud" placeholder="请输入需求标题，不超过30字" v-model.trim="form.name" :maxlength="30"></el-input>
                     </el-col>
                 </el-form-item>
             </el-row>
@@ -13,7 +13,7 @@
             <el-row>
                 <el-form-item label="类目" prop='category'>
                     <el-col :span="9">
-                       <el-select v-model="form.category" placeholder="请选择" style="width:100%;">
+                       <el-select :disabled="!aud" v-model="form.category" placeholder="请选择" style="width:100%;">
                             <el-option v-for="(item,index) in serveCategoryOptions" :key="index" :label="item.name" :value="item.id">
                             </el-option>
                         </el-select>
@@ -24,7 +24,7 @@
             <el-row>
                 <el-form-item label="有效期" prop='validDate'>
                     <el-col :span="9">
-                        <el-date-picker v-model="form.validDate" type="date" placeholder="选择日期" style="width:100%;" :picker-options="disableStart"></el-date-picker>
+                        <el-date-picker :disabled="!aud" v-model="form.validDate" type="date" placeholder="选择日期" style="width:100%;" :picker-options="disableStart"></el-date-picker>
                     </el-col>
                 </el-form-item>
             </el-row>
@@ -32,7 +32,7 @@
             <el-row>
                 <el-form-item label="需求封面" prop="cover">
                     <el-col :span="14">
-                        <el-upload class="psn-cover-uploader fl" :show-file-list="false" action :before-upload="UploaCover">
+                        <el-upload :disabled="!aud" class="psn-cover-uploader fl" :show-file-list="false" action :before-upload="UploaCover">
                             <img v-if="img != '' && img != null" :src="img" class="psn-cover">
                             <i v-else class="el-icon-plus psn-cover-uploader-icon"></i>
                         </el-upload>
@@ -61,8 +61,8 @@
                 </el-form-item>
             </el-row>
             <!-- 按钮部分 -->
-            <el-form-item>
-                <button class="psn-confirm-btn" @click="onSubmit(1)" type="button">提交审核</button>
+            <el-form-item v-if="aud">
+                <button class="psn-confirm-btn" @click="onSubmit(1)" type="button" >提交审核</button>
                 <button class="psn-confirm-btn" @click="onSubmit(0)" type="button">保存</button>
                 <button class="psn-cancel-btn" @click="$router.push({ path: '/admin/demand/pending' })">取消</button>
             </el-form-item>
@@ -130,13 +130,15 @@
                         return time.getTime() < Date.now() - 8.64e7
                     }
                 },
-                isPreview: false
+                isPreview: false,
+                aud: true
             }
         },
         created() {
             this.isPreview = this.$route.path.includes('preview')
             // 请求涉及技术下拉
             this.getDictComb('demandCategory')
+            if (this.$route.query.aud) this.aud = false
         },
         mounted() {
             const self = this

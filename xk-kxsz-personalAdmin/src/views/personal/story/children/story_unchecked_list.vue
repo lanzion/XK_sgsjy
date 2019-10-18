@@ -19,7 +19,7 @@
                 </div>
                 <div class="msg-box verticle-middle">
                     <div class="story-name ellipsis clearfix">
-                        <router-link v-if="[0, 3].includes(item.auditStatus)" :to="{ path: 'preview', query: { id: item.id } }" class="name fl">
+                        <router-link v-if="[0, 3].includes(item.auditStatus)" :to="{ path: 'preview', query: { id: item.id,aud:1 } }" class="name fl">
                             {{item.name}}
                         </router-link>
                         <router-link v-if="[-1, 2].includes(item.auditStatus)" :to="{ path: 'publish', query: { id: item.id } }" class="name fl">

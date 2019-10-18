@@ -117,7 +117,8 @@
             }
         },
         created() {
-            this.isPreview = this.$route.path.includes('preview')
+            // this.isPreview = this.$route.path.includes('preview')
+            if (!this.$route.query.aud) this.isPreview = true
             // 登录账号类型
             this.userIdentity = this.$ls.get('userIdentity')
             this.getCategoryList()

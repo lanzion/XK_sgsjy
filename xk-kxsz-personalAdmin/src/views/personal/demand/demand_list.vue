@@ -19,7 +19,8 @@
                 </div>
                 <div class="msg-box fl">
                     <h4 class="name">
-                        <router-link :to=" { path: '/street/lagou/detail/2', query: { id: item.id } } " v-if="auditStatus == 1"> {{ item.name | handleWorksDesc(10) }} </router-link>
+                        <!-- <router-link :to=" { path: '/street/lagou/detail/2', query: { id: item.id } } " v-if="auditStatus == 1"> {{ item.name | handleWorksDesc(10) }} </router-link> -->
+                        <router-link :to=" { path: 'publish', query: { id: item.id,aud: 1 } } " v-if="auditStatus == 1"> {{ item.name | handleWorksDesc(10) }} </router-link>
                         <router-link :to=" { path: 'publish', query: { id: item.id } } " v-else> {{ item.name | handleWorksDesc(10) }} </router-link>
                     </h4>
                     <div class="content">

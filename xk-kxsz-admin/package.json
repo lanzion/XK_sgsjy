@@ -21,6 +21,7 @@
     "vue": "^2.4.1",
     "vue-echarts": "^2.4.1",
     "vue-router": "^2.7.0",
+    "vue-simple-uploader": "^0.7.2",
     "vuex": "^2.3.1",
     "wangeditor": "^2.1.23",
     "webuploader": "^0.1.8",

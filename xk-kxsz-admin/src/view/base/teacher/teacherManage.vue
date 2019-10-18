@@ -5,6 +5,7 @@
             <button type="button" class="fl bs-search-button i-form-button is-plain" @click="changePage(1)">搜索</button>
             <button class="bs-screening-button bs-handle-button" :class="{'isDropdowm': screeningDropdown }" @click="screeningDropdown=!screeningDropdown"></button>
             <div class="import_file">
+                <div id="u_picker">导入</div>
                 <a href="../../../../static/template/教师模板.xlsx" class="dowtemp" download="教师模板">下载模板</a>
             </div>
             <div v-show="screeningDropdown" class="bs-screening_wrap">
@@ -136,11 +137,13 @@
         requestBaseTeacher,
         delTeacherByIds,
         userBatchAudit,
-        resetPwd
+        resetPwd,
+        uploadStudentExcel
     } from '@/service/admin_base.js'
     import dataTranslation from 'Asset/js/dataTranslation.js'
     import adminOperate from '@/components/common/operate.vue'
     import region from '@/components/common/select/region_select.vue' // 省市区下拉
+    const fileUploadAddress = location.protocol + "//" + location.host;
     export default {
         name:'teacherManage',
         mixins: [subPermission, recommend, userLock, setPage],
@@ -220,6 +223,57 @@
         mounted() {
             this._search = Object.assign({}, this.search)
             this.getData()
+            var uploader = WebUploader.create({
+      // swf文件路径
+      swf: "../static/js/Uploader.swf",
+      // 文件接收服务端。
+      server: fileUploadAddress + "/file/authnw/fileUpload",
+      // 选择文件的按钮。可选。
+      // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+      pick: "#u_picker",
+      // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+      resize: false,
+      //是否开启自动上传
+      auto: true
+    });
+    uploader.on("beforeFileQueued", function(file) {
+      console.log("文件加入队前", file);
+    });
+    uploader.on("uploadError", function(file, res) {
+      self.$message({ message: res.data.msg });
+    });
+    uploader.on("uploadSuccess", function(file, res) {
+      console.log("文件上传成功", file, res);
+      if (res.status.value === 200) {
+        // self.form.pic = res.data.resourceId;
+        uploadStudentExcel({fileId:res.data.resourceId}).then(upRes=>{
+            console.log(upRes)
+            if (upRes) {
+                if (upRes.data.code==200){
+                    this.$message({message: '导入成功',type: 'success'})
+                }else {
+                    this.$message({message: '导入失败',type: 'error'})
+                }
+            }
+        })
+      }
+    });
+    $("#u_picker div").css({
+      width: "100%",
+      height: "100%"
+    });
+    $("#u_picker .webuploader-pick").css({
+      width: "100%",
+      height: "100%",
+      "font-size": "14px",
+      "text-align": "center",
+      "line-height": "30px",
+      color: "#fff"
+    });
+    $("#u_picker input").css({ display: "none" });
+    setTimeout(function() {
+      $("#u_picker input").css({ display: "none" });
+    }, 100);
         },
         methods:{
             ...mapActions({
@@ -487,5 +541,13 @@
         border: 1px solid #2797ed;
         display: inline-block;
     }
+}
+</style>
+<style lang="scss" scoped>
+#u_picker{
+    background: #3083eb;
+    display: inline-block;
+    width: 68px;
+    margin-right: 5px;
 }
 </style>

@@ -13,7 +13,10 @@
                 </div>
                 <div class="msg-box verticle-middle">
                     <div class="story-name ellipsis clearfix">
-                        <router-link :to="{path:'/street/excellent/story/detail/info',query:{id:item.id}}" class="name fl">
+                        <!-- <router-link :to="{path:'/street/excellent/story/detail/info',query:{id:item.id}}" class="name fl">
+                            {{item.name}}
+                        </router-link> -->
+                         <router-link :to="{ path: 'preview', query: { id: item.id } }" class="name fl">
                             {{item.name}}
                         </router-link>
                     </div>

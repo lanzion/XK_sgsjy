@@ -26,8 +26,8 @@
 			<dt>附件：</dt>
 			<dd>
 				<ul v-if="detail.resourceList.length">
-					<li v-for="(item,index) in detail.resourceList">
-						<a href="javaScript:;" style="color: #2797ed;" @click.prevent="downloadItem(item.resourceId,item.name)">{{item.name}}</a>
+					<li v-for="(item,index) in detail.resourceList" :key="index">
+						<a :href="downloadUrl(item.resourceId,item.name)" style="color: #2797ed;" :download="item.name">{{item.name}}</a>
 					</li>
 				</ul>
 				<span v-else>暂无附件</span>
