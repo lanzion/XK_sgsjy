@@ -27,6 +27,21 @@ Vue.prototype.pages = pages
 
 Vue.use(ElementUI)
 
+Vue.prototype.downloadItem = function (url, name) {
+  Axios.get(url, { responseType: 'blob' })
+      .then(({ data }) => {
+          // 为了简单起见这里blob的mime类型 固定写死了
+          let blob = new Blob([data], { type: 'application/vnd.ms-excel' })
+          let link = document.createElement('a')
+          link.href = window.URL.createObjectURL(blob)
+          link.download = name
+          link.click()
+      })
+      .catch(error => {
+          console.error(error)
+      })
+}
+
 router.beforeEach((to, from, next) => {
   let isLogin = Cookies.has('token')
   // let userIdentity = localStorage.getItem('userIdentity')

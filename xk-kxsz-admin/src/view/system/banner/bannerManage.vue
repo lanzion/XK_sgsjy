@@ -16,7 +16,7 @@
                         <i class="banner-item-handle i-success-bg"></i>
                         <i class="banner-item-handle icon-status-selected"></i>
                     </template>
-                    <i class="banner-item-handle icon-btn-close2" @click="delBanner(item)"></i>
+                    <i class="banner-item-handle icon-btn-close2" @click="delBanner(item,index)"></i>
                     <img class="banner-img" :src="getFileUrl(item.imageUrl)" @click="setRelation(item)">
                     <el-input placeholder="请输入链接地址" v-model="item.url" @keyup.enter.native="updateBanner(item)">
                         <template slot="prepend">
@@ -127,11 +127,12 @@
              * 删除Banner图
              * bannerFileId: 图片ID
              */
-            delBanner(item) {
+            delBanner(item,index) {
                 let _id = item.bannerFileId
                 delBanner({bannerFileId: _id}).then(response => {
                     if (response.data.code == 200) {
                         this.items.splice(index, 1)
+                        this.$message({message: '删除成功', type: 'success'})
                     } else {
                         this.$message.error(response.data.msg)
                     }

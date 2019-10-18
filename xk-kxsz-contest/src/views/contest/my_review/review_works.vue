@@ -3,7 +3,7 @@
     <div class="review_works_title">
       <h4 class="list-head">{{title}}</h4>
       <ul class="list_conent">
-        <li>{{currentPhaseName}}统计:</li>
+        <li>{{currentPhaseName}}分数统计:</li>
         <li>0~59: {{sectional.A||0}}人</li>
         <li>60~69: {{sectional.B||0}}人</li>
         <li>70~79: {{sectional.C||0}}人</li>
@@ -25,7 +25,7 @@
             <span class="fl works-name ellipsis">{{props.item.worksName}}</span>
             <span class="fr user-name ellipsis">{{props.item.userName}}</span>
           </h6>
-          <h6 class="list-item-title clearfix" v-for="(phitem,index) in PhaseList" :key="index" v-if="props.item.scoreMap[phitem.id]">{{phitem.name}}: {{props.item.scoreMap[phitem.id]}}分</h6>
+          <h6 class="list-item-title clearfix" v-for="(phitem,index) in PhaseList" :key="index" v-if="props.item.scoreMap&&props.item.scoreMap[phitem.id]">{{phitem.name}}: {{props.item.scoreMap[phitem.id]}}分</h6>
         </template>
       </v-list>
     </div>
@@ -165,7 +165,7 @@ export default {
         if (res.data.code === 200) {
           const _data = res.data.entity || {};
           this.worksItems = _data.resultData || [];
-          console.log(this.worksItems)
+          // console.log(this.worksItems)
           this.$set(this.pageParam, "totalNum", _data.totalNum || 0);
         } else {
           this.worksItems = [];

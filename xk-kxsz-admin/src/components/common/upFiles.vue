@@ -906,4 +906,22 @@ export default {
         }
     }
 }
+#filePicker1{
+    width: 80px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    color: #2797ed;
+    border: 1px solid #2797ed;
+    overflow: hidden;
+    position: relative;
+    input{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top:0;
+        opacity: 0;
+    }
+}
 </style>

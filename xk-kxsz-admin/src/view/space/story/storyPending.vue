@@ -191,6 +191,7 @@
              * 审核
              */
             openAuditPopup(item) {
+                this.AuditParams = [];
                 if(item.index != undefined || this.checkedItems.length) {
                     if(item.index != undefined) {
                         this.AuditParams.push({id: item.data.id})

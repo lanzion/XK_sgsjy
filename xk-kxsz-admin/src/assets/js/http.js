@@ -44,11 +44,11 @@ axios.interceptors.request.use((config) => {
     //         }
     //     }
     // }
-    const flag = historyConfig.some(x => (x && location.href === x.href && config.url === x.url && isObjectValueEqual(config.data, x.data)))
-    if (flag) {
-        const error = '本次请求与上一次相同，请勿连续发起请求' + config.url
-        return Promise.reject(error)
-    }
+    // const flag = historyConfig.some(x => (x && location.href === x.href && config.url === x.url && isObjectValueEqual(config.data, x.data)))
+    // if (flag) {
+    //     const error = '本次请求与上一次相同，请勿连续发起请求' + config.url
+    //     return Promise.reject(error)
+    // }
 
     setTimeout(() => {
         // 更新最近活动时间
@@ -71,6 +71,7 @@ axios.interceptors.request.use((config) => {
 
 // 响应拦截
 axios.interceptors.response.use((response) => {
+    console.log(response)
     if (response.data.code === 999) {
         removeUserInfo()
         store.commit('toggleLoginModal', true)

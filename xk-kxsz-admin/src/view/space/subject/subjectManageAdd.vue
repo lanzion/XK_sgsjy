@@ -58,10 +58,20 @@
             <el-row>
                 <el-form-item label="附件">
                     <el-col :span="15">
-                        <el-upload class="upload-demo" action :file-list="fileList" :on-remove="handleRemove" :before-upload="UploadFile">
+                        <!-- <el-upload class="upload-demo" action :file-list="fileList" :on-remove="handleRemove" :before-upload="UploadFile">
                             <span class="upload-btn"><i class="icon-btn-add-circle"></i> 点击上传</span>
                             <span slot="tip" class="upload-tip">上传多个文件，单个文件大小在{{ standardFileSize }}M以内</span>
-                        </el-upload>
+                        </el-upload> -->
+                        <v-up-files
+                        :auto="false"
+                        :selectedList="fileList"
+                        :ifStatus="ifStatus"
+                        @fileSuccess="fileSuccess"
+                        :defaultList='fileList'
+                        ></v-up-files>
+                        <div class="fileTips">
+                        <p>注：名称长度在30字以内， 单个文件大小不超过500M，一次性可上传多个文件</p>
+                        </div>
                     </el-col>
                 </el-form-item>
             </el-row>
@@ -125,12 +135,14 @@ import { addSubject, detailSubject, modifySubject } from '@/service/admin_space.
 import { requestBaseTeacher } from '@/service/admin_base.js'
 import { requestAdminResourceList } from '@/service/resource.js'
 import { mapState } from 'vuex'
+import upFiles from "@/components/common/upFiles";
     export default {
         name:'worksPublish',
         mixins: [uploadFileSize, editor],
         components:{
             'v-region-select': region,
-            'multi-select':multiSelect
+            'multi-select':multiSelect,
+            "v-up-files": upFiles,
         },
         data () {
             return {
@@ -204,6 +216,7 @@ import { mapState } from 'vuex'
                         return time.getTime() < Date.now() - 8.64e7;
                     }
                 },
+                ifStatus:false,
             }
         },
         mounted () {
@@ -229,6 +242,7 @@ import { mapState } from 'vuex'
                         form.memberList = res.memberList
                         form.resourceList = res.resourceList
                         this.fileList = res.attList.map(i => ({name: i.name, url: i.resourceId, status:'finished', size: i.fileSize}) )
+                        this.ifStatus = true;
                         this.resetExperts()
                         this.resetResource()
                     }
@@ -236,6 +250,18 @@ import { mapState } from 'vuex'
             }
         },
         methods: {
+            fileSuccess(data) {
+                this.fileList = data.map(x=>{
+                    let item = {
+                        name: x.name,
+                        url: x.resourceId,
+                        status:'finished',
+                        size:x.size
+                        };
+                        return item;
+                })
+                this.ifStatus = false;
+                },
             // 获取专家老师列表
             getTeacherList(isSearch) {
                 if (isSearch) {

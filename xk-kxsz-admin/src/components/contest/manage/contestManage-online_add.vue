@@ -308,7 +308,7 @@
               :defaultList='defaultList'
             ></v-up-files>
             <div class="fileTips">
-              <p>注：名称长度在30字以内， 单个文件大小不超过500M，一次性最多可上传10个文件</p>
+              <p>注：名称长度在30字以内， 单个文件大小不超过500M，一次性可上传多个文件</p>
             </div>
           </el-col>
         </el-form-item>

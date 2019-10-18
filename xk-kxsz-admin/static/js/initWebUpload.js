@@ -90,7 +90,7 @@ function initWebUpload() {
         fileNumLimit: 1024,
         fileSizeLimit: 1024 * 1024 * 1024,
         fileSingleSizeLimit: 1024 * 1024 * 1024,
-        duplicate: true
+        duplicate: true,
     })
 
     // 当某个文件的分块在发送前触发，主要用来询问是否要添加附带参数，大文件在开起分片上传的前提下此事件可能会触发多次。
