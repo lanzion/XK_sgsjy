@@ -220,6 +220,7 @@
                 zbList: [],
                 scoreBtnFlag:false,
                 multipleSelection:[],//选中的作品
+                phaseId:''
             }
         },
         computed: {
@@ -329,6 +330,7 @@
                         for (let i = 0; i < this.phaseDL.length; i++) {
                             if (this.identity === this.phaseDL[i].identity) {
                                 this.search.phaseId = this.phaseDL[i].id
+                                this.phaseId = this.phaseDL[i].id
                                 this.automaticAwardFlag(this.search.phaseId)
                                 break
                             }
@@ -549,7 +551,7 @@
             automaticAwards(){
                 if(!this.scoreBtnFlag) return false
                 let matchId = this.$route.query.id;
-                automaticAwards({matchId:matchId}).then(res=>{
+                automaticAwards({matchId:matchId,phaseId:this.phaseId}).then(res=>{
                     let data = res.data;
                     console.log(data);
                     if(data.code==200){

@@ -19,7 +19,8 @@
       ></button>
       <div class="import_file">
         <div id="u_picker">导入</div>
-        <a href="/static/template/学生模板.xlsx" class="dowtemp" download="学生模板">下载模板</a>
+        <!-- <a href="/static/template/学生模板.xlsx" class="dowtemp" download="学生模板">下载模板</a> -->
+        <a href="javascript:;" class="dowtemp" @click="download">下载模板</a>
       </div>
       <div v-show="screeningDropdown" class="bs-screening_wrap">
         <el-form :inline="true" :model="search" class="bs-screening_box">
@@ -340,6 +341,10 @@ export default {
   //     }
   // },
   methods: {
+      download(){
+          window.open('./static/template/学生模板.xlsx')
+        // window.location.href = '/static/template/教师模板.xlsx'
+      },
     ...mapActions({
       getDictComb: "dictionaryCommon/getDictComb"
     }),
@@ -601,6 +606,7 @@ export default {
     display: inline-block;
     width: 68px;
     margin-right: 5px;
+    position: relative;
 }
 </style>
 

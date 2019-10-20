@@ -107,7 +107,6 @@ import {
 } from "@/service/admin_space.js";
 // import dataTranslation from 'Asset/js/dataTranslation.js'
 const fileUploadAddress = location.protocol + '//' + location.host
-import "Asset/js/initWebUpload.js"
 export default {
   name: "addInfo",
   mixins: [uploadFileSize, editor ],
