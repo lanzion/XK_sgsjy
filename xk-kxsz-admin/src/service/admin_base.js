@@ -118,6 +118,8 @@ let delStudent = (options = {}) => xhr.post(`/maker/baseStudent/del`,options)
 let batchDelStudent = (options = {}) => xhr.post(`/maker/baseStudent/delByIds`,options)
 // 学生 - 导入账号
 let uploadStudentExcel = (options = {}) => xhr.post('/maker/baseStudent/uploadStudentExcel',options)
+// 教师 - 导入账号
+let uploadStaffExcel = (options = {}) => xhr.post('/maker/baseTeacher/uploadStaffExcel',options)
 
 
 
@@ -365,5 +367,6 @@ export {
     changeModelStatus,
     requestTransferSchoolList,
     transferSchoolAudit,
-    uploadStudentExcel
+    uploadStudentExcel,
+    uploadStaffExcel
 }

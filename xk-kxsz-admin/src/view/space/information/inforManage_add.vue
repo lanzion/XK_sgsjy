@@ -385,7 +385,7 @@ export default {
 }
 </style>
 
-<style lang='scss'>
+<style lang='scss' scoped>
 .admin_infoPublish {
   /* 编辑器高度 */
   .wangEditor-container .wangEditor-txt {

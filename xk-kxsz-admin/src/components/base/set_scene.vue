@@ -2,7 +2,7 @@
   <section id="spaceScene" class="spaceScene">
     <h2 class="title">背景设置</h2>
     <section class="option-box clearfix">
-      <div id="v_picker">点击上传</div>
+      <div id="v_picker1">点击上传</div>
       <!-- <el-upload action :show-file-list="false" :before-upload="UploadFile">
                 <button type="button" class="bs-handle-button i-form-button btn-upload">+上传图片</button>
                 <div style="font-size:12px;padding-top:4px;color:#ff4949;" v-if="imgSizeBig">
@@ -64,7 +64,7 @@ export default {
       server: fileUploadAddress + "/file/authnw/fileUpload",
       // 选择文件的按钮。可选。
       // 内部根据当前运行是创建，可能是input元素，也可能是flash.
-      pick: "#v_picker",
+      pick: "#v_picker1",
       // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
       resize: false,
       //是否开启自动上传
@@ -97,7 +97,7 @@ export default {
       }
     });
     setTimeout(function() {
-      $("#v_picker input").css({ display: "none" });
+      $("#v_picker1 input").css({ display: "none" });
     }, 100);
   },
   methods: {
@@ -272,7 +272,7 @@ export default {
   }
 }
 
-#v_picker {
+#v_picker1 {
   color: #2797ed;
   padding: 8px 14px;
   display: inline-block;

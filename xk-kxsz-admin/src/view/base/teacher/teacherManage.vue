@@ -195,7 +195,7 @@ import {
   delTeacherByIds,
   userBatchAudit,
   resetPwd,
-  uploadStudentExcel
+  uploadStaffExcel,
 } from "@/service/admin_base.js";
 import dataTranslation from "Asset/js/dataTranslation.js";
 import adminOperate from "@/components/common/operate.vue";
@@ -280,6 +280,7 @@ export default {
     }
   },
   mounted() {
+    let self = this;
     this._search = Object.assign({}, this.search);
     this.getData();
     var uploader = WebUploader.create({
@@ -305,15 +306,12 @@ export default {
       console.log("文件上传成功", file, res);
       if (res.status.value === 200) {
         // self.form.pic = res.data.resourceId;
-        uploadStudentExcel({ fileId: res.data.resourceId }).then(upRes => {
-          console.log(upRes);
-          if (upRes) {
-            if (upRes.data.code == 200) {
-              this.$message({ message: "导入成功", type: "success" });
-            } else {
-              this.$message({ message: "导入失败", type: "error" });
-            }
-          }
+        uploadStaffExcel({ fileId: res.data.resourceId }).then(upRes => {
+          if (upRes.data.code==200){
+                    self.$message({message: '导入成功',type: 'success'})
+                }else {
+                    self.$message({message: '导入失败',type: 'error'})
+                }
         });
       }
     });

@@ -1,7 +1,7 @@
 <template>
     <section id="bgcPopup">
         <h2 class="title">背景设置</h2>
-        <div id="v_picker">点击上传</div>
+        <div id="v_picker2">点击上传</div>
         <span slot="tip" class="upload-tip">
                 大小不能超过{{ imgStandardFileSize }}M, 仅支持:gif、jpg、png。
                 建议上传的图片像素为 1200 x 300
@@ -58,7 +58,7 @@
                 server: fileUploadAddress + '/file/authnw/fileUpload',
                 // 选择文件的按钮。可选。
                 // 内部根据当前运行是创建，可能是input元素，也可能是flash.
-                pick: '#v_picker',
+                pick: '#v_picker2',
                 // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
                 resize: false,
                 //是否开启自动上传
@@ -75,7 +75,7 @@
                 }
             });
             setTimeout(function(){
-              $('#v_picker input').css({display: 'none'})  
+              $('#v_picker2 input').css({display: 'none'})  
             },100)
         },
         methods: {
@@ -139,7 +139,7 @@
     }
 }
 
-#v_picker{
+#v_picker2{
     color: #2797ed;
     padding: 8px 14px;
     display: inline-block;

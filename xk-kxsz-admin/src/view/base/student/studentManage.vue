@@ -278,6 +278,7 @@ export default {
     initWebUpload();
   },
   mounted() {
+    let self = this;
     this._search = Object.assign({}, this.search);
     this.getData();
     var uploader = WebUploader.create({
@@ -304,14 +305,11 @@ export default {
       if (res.status.value === 200) {
         // self.form.pic = res.data.resourceId;
         uploadStudentExcel({fileId:res.data.resourceId}).then(upRes=>{
-            console.log(upRes)
-            if (upRes) {
                 if (upRes.data.code==200){
-                    this.$message({message: '导入成功',type: 'success'})
+                    self.$message({message: '导入成功',type: 'success'})
                 }else {
-                    this.$message({message: '导入失败',type: 'error'})
+                    self.$message({message: '导入失败',type: 'error'})
                 }
-            }
         })
       }
     });
