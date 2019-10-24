@@ -8,7 +8,8 @@
                 </i>
                 <div class="attlist_li_msg">
                     <p>{{i.name}}</p>
-                    <p><a :href="downloadUrl( i.resourceId, i.name )" :download="i.name" style="color:#0391D9;fontSize:14px;"> 下载 </a></p>
+                    <!-- <p><a :href="downloadUrl( i.resourceId, i.name )" :download="i.name" style="color:#0391D9;fontSize:14px;"> 下载 </a></p> -->
+                    <p><a @click="downloadUrl(i.resourceId, i.name )" style="color:#0391D9;fontSize:14px;"> 下载 </a></p>
                 </div>
             </li>
         </ul>

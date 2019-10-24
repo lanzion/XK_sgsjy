@@ -19,7 +19,8 @@
             <el-table-column label="操作" width="160" v-if="$ls.get('loginInfo')">
                 <template slot-scope="scope">
                     <del-popover v-if="ifAdmin || isCreater" title="删除" class="delete" :delData="{ url:'maker/activity/resource/del', params:{id: scope.row.id}, name:'成果' }" v-on:callback="getActivityResult"></del-popover>
-                    <a :href="downloadUrl(scope.row.resourceId, scope.row.name)" :download="scope.row.name"><i title="下载" class="icon-btn-download" style="vertical-align: top;"></i></a>
+                    <!-- <a :href="downloadUrl(scope.row.resourceId, scope.row.name)" :download="scope.row.name"><i title="下载" class="icon-btn-download" style="vertical-align: top;"></i></a> -->
+                    <a @click="downloadUrl(scope.row.resourceId, scope.row.name)"><i title="下载" class="icon-btn-download" style="vertical-align: top;"></i></a>
                 </template>
             </el-table-column>
         </el-table>

@@ -11,7 +11,8 @@
                 <dl class="clearfix">
                     <dt class="fl">附件：</dt>
                     <dd class="file" v-if="stageDetail.resourceId">
-                        <a :title="downloadUrl(stageDetail.resourceId)" :href="downloadUrl(stageDetail.resourceId, stageDetail.resourceName)" :download="stageDetail.resourceName || '无文件名'">{{stageDetail.resourceName || '无附件名'}}</a>
+                        <!-- <a :title="downloadUrl(stageDetail.resourceId)" :href="downloadUrl(stageDetail.resourceId, stageDetail.resourceName)" :download="stageDetail.resourceName || '无文件名'">{{stageDetail.resourceName || '无附件名'}}</a> -->
+                        <a href="javascript:;" @click="downloadUrl(stageDetail.resourceId, stageDetail.resourceName)">{{stageDetail.resourceName || '无附件名'}}</a>
                     </dd>
                     <dd v-else>暂无附件</dd>
                 </dl>

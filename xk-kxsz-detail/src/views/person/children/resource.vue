@@ -31,7 +31,8 @@
                     <div slot="operate" class="operate pa">
                         <span class="score blue">{{item.avgScore || 5}}分</span>
                         <a @click="redirect(pages.detail.resource, { query: { id: item.id } })" class="btn">预览</a>
-                        <a v-if="$ls.get('loginInfo')" :href="downloadUrl(item.fileId, item.name, item.fileExt)" :download="item.name || +new Date" class="btn" @click="downloadAdd(item.id,index)">下载</a>
+                        <!-- <a v-if="$ls.get('loginInfo')" :href="downloadUrl(item.fileId, item.name, item.fileExt)" :download="item.name || +new Date" class="btn" @click="downloadAdd(item.id,index)">下载</a> -->
+                        <a v-if="$ls.get('loginInfo')" href="javascript:;" :download="item.name || +new Date" class="btn" @click="downloadAdd(item.fileId, item.name,item.id,index)">下载</a>
                     </div>
                 </list-row>
             </ul>
@@ -101,7 +102,13 @@
             /*
              * 下载次数加1
              */
-            downloadAdd(id, index) {
+            downloadAdd(resourceId, fileName,id, index) {
+                const link = document.createElement("a");
+                link.style.display = "none";
+                link.href = fileBaseUrl+resourceId;
+                link.setAttribute("download", fileName);
+                document.body.appendChild(link);
+                link.click();
                 downloadAdd({ id: id }).then((res) => {
                     if (res.data.code === 200) {
                         this.lists[index].downNum++

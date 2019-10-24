@@ -72,7 +72,10 @@
                                     <button class="cover-uploader-icon">上传文件</button>
                                 </el-upload>
                                 <p v-else class="download cell table-content">
-                                    <a v-if="downLoadResource && Object.keys(downLoadResource).length" :href="downloadUrl(downLoadResource.resourceId, downLoadResource.name)" :download="downLoadResource.name" class="btn-download blue" title="下载">
+                                    <!-- <a v-if="downLoadResource && Object.keys(downLoadResource).length" :href="downloadUrl(downLoadResource.resourceId, downLoadResource.name)" :download="downLoadResource.name" class="btn-download blue" title="下载">
+                                        {{downLoadResource.name}}
+                                    </a> -->
+                                    <a v-if="downLoadResource && Object.keys(downLoadResource).length" @click="downloadUrl(downLoadResource.resourceId, downLoadResource.name)" class="btn-download blue" title="下载">
                                         {{downLoadResource.name}}
                                     </a>
                                     <a class="btn-download" v-else>暂无附件</a>
@@ -102,7 +105,11 @@
                         <p class="comment">评语：{{list.remark}}</p>
                         <p class="attachment">
                             附件：
-                            <a v-if="list.resource && Object.keys(list.resource).length" :href="downloadUrl((list.resource || {}).resourceId)" :download="(list.resource || {}).name"
+                            <!-- <a v-if="list.resource && Object.keys(list.resource).length" :href="downloadUrl((list.resource || {}).resourceId)" :download="(list.resource || {}).name"
+                                 class="blue" title="下载">
+                                {{(list.resource || {}).name}}
+                            </a> -->
+                            <a v-if="list.resource && Object.keys(list.resource).length" @click="downloadUrl((list.resource || {}).resourceId, (list.resource || {}).name)"
                                  class="blue" title="下载">
                                 {{(list.resource || {}).name}}
                             </a>

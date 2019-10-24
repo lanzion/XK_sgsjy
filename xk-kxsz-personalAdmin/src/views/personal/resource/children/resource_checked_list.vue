@@ -37,7 +37,8 @@
                     </p>
                 </div>
                 <div class="option-box fr">
-                    <a title="下载" :href="downloadUrl(item.fileId, item.name, item.fileExt)" :download="item.name" @click="downloadAdd(item.id,index)"><i class="icon-btn-download vertical-align-top"></i></a>
+                    <!-- <a title="下载" :href="downloadUrl(item.fileId, item.name, item.fileExt)" :download="item.name" @click="downloadAdd(item.id,index)"><i class="icon-btn-download vertical-align-top"></i></a> -->
+                    <a title="下载" href="javascript:;" :download="item.name" @click="downloadAdd(item.fileId,item.name,item.id,index)"><i class="icon-btn-download vertical-align-top"></i></a>
                     <share-btn :title="item.name" module="resource" :id="item.id" class="vertical-align-top"></share-btn>
                     <!-- <del-popover title="删除" class="delete" :delData="{ url:'maker/resource/del', params:{id: item.id}, name:'资源' }" v-on:callback="getResourceList"></del-popover> -->
                 </div>
@@ -57,6 +58,7 @@
     import dataTranslation from 'Asset/js/dataTranslation.js'
     import { requestResourceList, downloadAdd } from '@/service/resource.js'
     import { interceptVideo } from '@/mixin/intercept_video.js'
+    import { fileBaseUrl } from 'Asset/js/common-config.js'
 
     export default {
         name: 'resource_checked_list',
@@ -154,7 +156,13 @@
             /*
              * 下载次数加1
              */
-            downloadAdd(id, index) {
+            downloadAdd(resourceId, fileName, id, index) {
+                const link = document.createElement('a')
+                link.style.display = 'none'
+                link.href = fileBaseUrl + resourceId
+                link.setAttribute('download', fileName)
+                document.body.appendChild(link)
+                link.click()
                 downloadAdd({ id: id }).then((res) => {
                     if (res.data.code === 200) {
                         this.datas[index].downNum ++

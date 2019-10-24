@@ -32,7 +32,8 @@
                             {{ i.name | handleWorksDesc(20) }}
                         </router-link>
                         <time class="list_li_time fr">
-                            <a :href="downloadUrl( i.resourceId, i.name )" :download="i.name" @click="downloadAdd(i.resourceTabId,k)" title="下载"> <i class="icon-btn-download"></i> </a> &nbsp;&nbsp;
+                            <!-- <a :href="downloadUrl( i.resourceId, i.name )" :download="i.name" @click="downloadAdd(i.resourceTabId,k)" title="下载"> <i class="icon-btn-download"></i> </a> &nbsp;&nbsp; -->
+                            <a href="javascript:;" :download="i.name" @click="downloadAdd(i.resourceId,i.name,i.resourceTabId,k)" title="下载"> <i class="icon-btn-download"></i> </a> &nbsp;&nbsp;
                             {{ i.userName }} &nbsp;&nbsp; {{ i.createDate | dateFormat('yyyy-MM-dd') }} &nbsp;&nbsp;
                             已下载{{ i.downNum || 0 }}次
                         </time>
@@ -132,6 +133,7 @@ import { fileType } from '@/mixin/fileType.js'
 import { requestNoticeList } from '@/service/space_clasz.js'
 import list from 'Common/list/graphic/list.vue'
 import bulletinBoard from 'Common/bulletinBoard.vue'
+import { fileBaseUrl } from '@/js/common-config.js'
 
 export default {
     mixins: [fileType],
@@ -155,7 +157,13 @@ export default {
         /*
          * 下载次数加1
          */
-        downloadAdd(id, index) {
+        downloadAdd(resourceId, fileName,id, index) {
+            const link = document.createElement("a");
+                link.style.display = "none";
+                link.href = fileBaseUrl+resourceId;
+                link.setAttribute("download", fileName);
+                document.body.appendChild(link);
+                link.click();
             downloadAdd({ id: id }).then((res) => {
                 if (res.data.code === 200) {
                     this.resource[index].downNum ++

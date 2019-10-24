@@ -47,7 +47,8 @@
                 <h4 class="fl">【<span class="w60 text-justify">附件</span>】：</h4>
                 <div class="content-left fl" v-if="detailsData.resourceList.length > 0">
                     <p class="attachment" v-for="(item,index) in detailsData.resourceList">
-                        <a :href="downloadUrl(item.resourceId, item.name)" :download="item.name">{{item.name}}</a>
+                        <!-- <a :href="downloadUrl(item.resourceId, item.name)" :download="item.name">{{item.name}}</a> -->
+                        <a href="javascript:;" @click="downloadUrl(item.resourceId, item.name)">{{item.name}}</a>
                     </p>
                 </div>
                 <div v-else class="content-left fl">暂无附件</div>

@@ -31,18 +31,27 @@
           </el-form-item>
           <el-form-item label="所属区域：">
             <el-col :span="24">
-              <v-region-select @region="changeRegion" ref="region" :defaultItems="defaultRegion"></v-region-select>
+              <v-region-select @region="changeRegion" ref="region"  :isAdmin="true" :clearable="true" :defaultItems="defaultRegion"></v-region-select>
             </el-col>
           </el-form-item>
           <el-form-item label="所属学校：">
             <el-col :span="24">
               <!-- <el-input v-model="form.school" placeholder="暂无学校信息"></el-input> -->
-              <region-school-select
+              <!-- <region-school-select
                 @checkedItem="changeSchool"
                 :checkedItem="form.schoolId"
                 :defaultList="schoolList"
+                :defaultItems="defaultRegion"
                 ref="studentRegion"
-              ></region-school-select>
+              ></region-school-select> -->
+              <el-select v-model="form.schoolId" clearable filterable placeholder="暂无学校信息">
+              <el-option
+                v-for="(item, index) in schoolList"
+                :key="index"
+                :label="item.schoolName"
+                :value="item.id"
+              ></el-option>
+            </el-select>
             </el-col>
           </el-form-item>
           <el-form-item label="报名项目：">
@@ -116,14 +125,15 @@
       <el-form-item label="培训资料：">
         <div v-if="form.attachmentList">
           <el-col :span="18" v-for="(file,index) in form.attachmentList" :key="index">
-            <a
+            <!-- <a
               :href="downloadUrl(file.resourceId, file.name)"
               :download="downloadName(file.name)"
               :title="file.name"
             >
               {{file.name}}
               <span class="down">下载</span>
-            </a>
+            </a> -->
+            <a  href="javascript:;" @click="downloadUrl(file.resourceId, file.name)"  :title="file.name">{{file.name}}<span class="down">下载</span></a>
           </el-col>
         </div>
       </el-form-item>
@@ -169,7 +179,8 @@ export default {
       },
       projectList: [],
       zbList: [],
-      editflag: false
+      editflag: false,
+      ifSchoolId:true,
     };
   },
   methods: {
@@ -259,8 +270,19 @@ export default {
                 this.form.cityId,
                 this.form.areaId
               ];
-
               if (this.$route.query.type) this.editflag = true;
+
+              requestSchoolList({
+          provinceId: this.form.provinceId,
+          cityId: this.form.cityId,
+          areaId: this.form.areaId
+        }).then(res => {
+          let datas = res.data;
+          if (datas.code == 200) {
+            this.schoolList = datas.appendInfo.comboxList;
+            if(!this.schoolList.length) this.form.schoolId = '';
+          }
+        });
             }
           }
         });
@@ -278,11 +300,15 @@ export default {
     },
     // 地区改变
     changeRegion(items) {
+      console.log(items)
       let [_province, _city, _area] = items;
-      this.form.provinceId = _province;
-      this.form.cityId = _city;
-      this.form.areaId = _area;
+      if(_area){
+        if(_city) this.form.cityId = _city;
+        if(_province) this.form.provinceId = _province;
+        this.form.areaId = _area;
+      } 
       if (this.form.areaId) {
+        if(!this.ifSchoolId) this.form.schoolId = '';
         requestSchoolList({
           provinceId: this.form.provinceId,
           cityId: this.form.cityId,
@@ -291,6 +317,8 @@ export default {
           let datas = res.data;
           if (datas.code == 200) {
             this.schoolList = datas.appendInfo.comboxList;
+            this.ifSchoolId = false;
+            if(!this.schoolList.length) this.form.schoolId = '';
           }
         });
       }

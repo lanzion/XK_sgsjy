@@ -129,7 +129,8 @@
                             <span slot="tip" class="upload-tip">上传多个文件，单个文件大小在{{standardFileSize}}M以内</span>
                         </el-upload>
                         <ul class="attList" v-else-if="form.attachmentList.length">
-                            <li v-for="(i, k)  in form.attachmentList" class="attList_li"> <a :href="downloadUrl(i.resourceId, i.name)" :download="i.name" class="" title="下载">{{ i.name }} </a></li>
+                            <!-- <li v-for="(i, k)  in form.attachmentList" class="attList_li"> <a :href="downloadUrl(i.resourceId, i.name)" :download="i.name" class="" title="下载">{{ i.name }} </a></li> -->
+                            <li v-for="(i, k)  in form.attachmentList" class="attList_li"> <a href="javascript:;" @click="downloadUrl(i.resourceId, i.name)" class="" title="下载">{{ i.name }} </a></li>
                         </ul>
                         <div v-else>
                             无附件

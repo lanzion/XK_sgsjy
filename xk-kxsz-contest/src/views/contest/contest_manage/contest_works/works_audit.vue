@@ -44,7 +44,8 @@
 				<dl class="detail-file clearfix">
 					<dt class="fl">附件：</dt>
 					<dd class="fl file" v-if="worksDetail.attachmentList != null && worksDetail.attachmentList.length">
-						<a class="c_blue" v-for="(file, index) in worksDetail.attachmentList" :key="index" :href="downloadUrl(file.resourceId, file.name)" :download="file.name" :title="file.name">{{file.name}}</a>
+						<!-- <a class="c_blue" v-for="(file, index) in worksDetail.attachmentList" :key="index" :href="downloadUrl(file.resourceId, file.name)" :download="file.name" :title="file.name">{{file.name}}</a> -->
+						<a class="c_blue" v-for="(file, index) in worksDetail.attachmentList" :key="index" href="javascript:;" @click="downloadUrl(file.resourceId, file.name )" :title="file.name">{{file.name}}</a>
 					</dd>
 					<dd class="fl file" v-else>
 						暂无附件

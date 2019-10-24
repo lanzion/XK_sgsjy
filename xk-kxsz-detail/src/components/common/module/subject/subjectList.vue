@@ -34,7 +34,8 @@
                     </el-table-column>
                     <el-table-column prop="prop3" :label="table_title[4]"  v-if="flag !== '/activity'"></el-table-column>
                     <el-table-column label="操作" width="80" v-if="flag === '/resource'">
-                        <template slot-scope="scope"><a :href="downloadUrl(scope.row.resourceId, scope.row.prop0)" :download="scope.row.prop0">下载</a></template>
+                        <!-- <template slot-scope="scope"><a :href="downloadUrl(scope.row.resourceId, scope.row.prop0)" :download="scope.row.prop0">下载</a></template> -->
+                        <template slot-scope="scope"><a @click="downloadUrl(scope.row.resourceId, scope.row.prop0)">下载</a></template>
                     </el-table-column>
                 </el-table>
             </div>

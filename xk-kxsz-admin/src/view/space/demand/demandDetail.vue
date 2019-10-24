@@ -27,7 +27,8 @@
 			<dd>
 				<ul v-if="detail.demandResource.length">
 					<li v-for="(item,index) in detail.demandResource">
-						<a :href="downloadUrl(item.resourceId, item.name)" :download="item.name" style="color: #2797ed;">{{item.name}}</a>
+						<!-- <a :href="downloadUrl(item.resourceId, item.name)" :download="item.name" style="color: #2797ed;">{{item.name}}</a> -->
+						<a href="javascript:;" @click="downloadUrl(item.resourceId, item.name)" style="color: #2797ed;">{{item.name}}</a>
 					</li>
 				</ul>
 				<span v-else>暂无附件</span>

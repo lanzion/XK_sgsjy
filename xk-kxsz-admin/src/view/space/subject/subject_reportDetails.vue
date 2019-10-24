@@ -77,7 +77,8 @@
                     <el-col :span="19">
                         <ul>
                             <li v-for='(i, k) in subjectDetails.attList'>
-                                <a :href="downloadUrl( i.resourceId, i.name )" :download="i.name" style="color:#0391D9;"> {{ i.name }} </a>
+                                <!-- <a :href="downloadUrl( i.resourceId, i.name )" :download="i.name" style="color:#0391D9;"> {{ i.name }} </a> -->
+                                <a href="javascript:;" @click="downloadUrl(i.resourceId, i.name )" style="color:#0391D9;"> {{ i.name }} </a>
                             </li>
                         </ul>
                     </el-col>

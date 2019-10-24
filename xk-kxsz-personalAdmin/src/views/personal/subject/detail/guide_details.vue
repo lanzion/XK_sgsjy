@@ -21,7 +21,8 @@
 					    <dl class="file clearfix">
 					    	<dt class="fl">附件：</dt>
 					    	<dd v-if="guidDetail.attList.length > 0">
-					    		<a v-for="(item,index) in guidDetail.attList" :href="downloadUrl(item.fileId, item.name)" :download="item.name">{{item.name}}</a>
+					    		<!-- <a v-for="(item,index) in guidDetail.attList" :href="downloadUrl(item.fileId, item.name)" :download="item.name">{{item.name}}</a> -->
+					    		<a v-for="(item,index) in guidDetail.attList" href="javascript:;" @click="downloadUrl(item.fileId, item.name)">{{item.name}}</a>
 					    	</dd>
 					    	<dd v-else>暂无附件</dd>
 					    </dl>

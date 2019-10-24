@@ -22,7 +22,8 @@
                         <span slot="tip" class="upload-tip">上传多个文件，单个文件大小在{{standardFileSize}}M以内</span>
                     </el-upload>
                     <ul class="attList" v-else-if="fileList.length && projectDetail.createId !== $ls.get('loginUId')">
-                        <li v-for="(i, k)  in fileList" class="attList_li"> <a :href="downloadUrl(i.resourceId, i.name)" :download="i.name" class="btn" title="下载">{{ i.name }} </a></li>
+                        <!-- <li v-for="(i, k)  in fileList" class="attList_li"> <a :href="downloadUrl(i.resourceId, i.name)" :download="i.name" class="btn" title="下载">{{ i.name }} </a></li> -->
+                        <li v-for="(i, k)  in fileList" class="attList_li"> <a @click="downloadUrl(i.resourceId, i.name)" class="btn" title="下载">{{ i.name }} </a></li>
                     </ul>
                     <div v-else class="text">
                         暂无

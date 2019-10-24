@@ -91,6 +91,7 @@
       :data="items"
       style="width: 100%"
       ref="multipleTable"
+      v-loading="loading"
       @selection-change="changeSelection"
     >
       <el-table-column type="selection" width="50"></el-table-column>
@@ -174,6 +175,14 @@
     <el-dialog class="dialog-audit" :visible.sync="pwdVisible" size="tiny" title="修改密码">
       <v-reset-pwd ref="resetPwd" :close="closeResetPwdDialog" @submit="doResetPwd"></v-reset-pwd>
     </el-dialog>
+    <el-dialog title="错误信息提示" :visible.sync="dialogTableVisible">
+      <el-table :data="errorInfo">
+        <el-table-column property="name" label="姓名" width="100"></el-table-column>
+        <el-table-column property="sex" label="性别" width="80"></el-table-column>
+        <el-table-column property="certiNum" label="身份证号" width="200"></el-table-column>
+        <el-table-column property="info" label="错误信息" show-overflow-tooltip></el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 
@@ -244,7 +253,10 @@ export default {
       isBatch: false, //判断是否是批量审核
       identity: "",
       pwdVisible: false,
-      rangeItems: "-1" //区域范围
+      rangeItems: "-1", //区域范围
+      dialogTableVisible:false,
+      errorInfo:[],
+      loading:false
     };
   },
   computed: {
@@ -298,6 +310,7 @@ export default {
     });
     uploader.on("beforeFileQueued", function(file) {
       console.log("文件加入队前", file);
+      self.loading = true;
     });
     uploader.on("uploadError", function(file, res) {
       self.$message({ message: res.data.msg });
@@ -309,9 +322,18 @@ export default {
         uploadStaffExcel({ fileId: res.data.resourceId }).then(upRes => {
           if (upRes.data.code==200){
                     self.$message({message: '导入成功',type: 'success'})
+                    self.getData();
                 }else {
-                    self.$message({message: '导入失败',type: 'error'})
+                    // self.$message({message: '导入失败',type: 'error'})
+                    if(upRes.data.appendInfo){
+                      self.errorInfo = upRes.data.appendInfo.info;
+                      self.dialogTableVisible = true;
+                    }else if(upRes.data.msg) {
+                      self.$message({message: upRes.data.msg,type: 'error'})
+                    }else self.$message({message: '导入失败',type: 'error'})
+                    
                 }
+          self.loading = false;      
         });
       }
     });
@@ -334,8 +356,14 @@ export default {
   },
   methods: {
       download(){
-          window.open('./static/template/教师模板.xlsx')
-        // window.location.href = '/static/template/教师模板.xlsx'
+          // window.open('./static/template/教师模板.xlsx')
+        // window.location.href = './static/template/教师模板.xlsx'
+        const link = document.createElement("a");
+            link.style.display = "none";
+            link.href = "./static/template/teacher.xlsx";
+            link.setAttribute("download", "教师模板");
+            document.body.appendChild(link);
+            link.click();
       },
     ...mapActions({
       getDictComb: "dictionaryCommon/getDictComb"

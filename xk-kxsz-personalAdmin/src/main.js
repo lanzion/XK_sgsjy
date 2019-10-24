@@ -1,5 +1,5 @@
-import 'es6-promise/auto'
 import 'babel-polyfill'
+import 'es6-promise/auto'
 import Vue from 'vue'
 import router from '@/router/index'
 import store from '@/store/index'

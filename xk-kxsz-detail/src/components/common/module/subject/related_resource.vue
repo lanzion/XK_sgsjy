@@ -4,7 +4,10 @@
         <section>
             <ul class="" v-if="resourceList.length > 0">
                 <li class="clearfix" v-for="(item, index) in resourceList">
-                    <a class="fr" v-if="$ls.get('loginInfo')" :href="downloadUrl(item.resourceId, item.name)" :download="item.name">
+                    <!-- <a class="fr" v-if="$ls.get('loginInfo')" :href="downloadUrl(item.resourceId, item.name)" :download="item.name">
+                        <i title="下载" class="icon-btn-download"></i>
+                    </a> -->
+                    <a class="fr" v-if="$ls.get('loginInfo')" href="javascript:;" @click="downloadUrl(item.resourceId, item.name)">
                         <i title="下载" class="icon-btn-download"></i>
                     </a>
                     <span class="res-tit" :title="item.name">{{item.name}}</span>

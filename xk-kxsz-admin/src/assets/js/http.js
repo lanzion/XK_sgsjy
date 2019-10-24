@@ -71,7 +71,7 @@ axios.interceptors.request.use((config) => {
 
 // 响应拦截
 axios.interceptors.response.use((response) => {
-    console.log(response)
+    // console.log(response)
     if (response.data.code === 999) {
         removeUserInfo()
         store.commit('toggleLoginModal', true)

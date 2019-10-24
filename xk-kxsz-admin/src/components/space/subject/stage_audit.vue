@@ -8,7 +8,8 @@
     		<dl class="stage-file clearfix">
     			<dt class="file-tit fl">附件：</dt>
     			<dd class="file fl" v-if="stageDetail.resourceId">
-    				<a :href="downloadUrl(stageDetail.resourceId)" :download="stageDetail.resourceName">{{stageDetail.resourceName || stageDetail.resourceId}}</a>
+    				<!-- <a :href="downloadUrl(stageDetail.resourceId)" :download="stageDetail.resourceName">{{stageDetail.resourceName || stageDetail.resourceId}}</a> -->
+    				<a href="javascript:;" @click="downloadUrl(stageDetail.resourceId,stageDetail.resourceName)">{{stageDetail.resourceName || stageDetail.resourceId}}</a>
     			</dd>
                 <dd class="file fl" v-else>暂无附件</dd>
     		</dl>

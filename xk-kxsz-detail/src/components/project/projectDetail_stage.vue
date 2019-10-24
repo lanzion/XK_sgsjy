@@ -66,7 +66,8 @@
                         <el-table-column prop="name" label="成果" show-overflow-tooltip></el-table-column>
                         <el-table-column label="操作" width="120">
                             <template slot-scope="scope">
-                                <a :href="downloadUrl( scope.row.resourceId, scope.row.name )" :download="scope.row.name" style="color:#0391D9;">下载</a>
+                                <!-- <a :href="downloadUrl( scope.row.resourceId, scope.row.name )" :download="scope.row.name" style="color:#0391D9;">下载</a> -->
+                                <a @click="downloadUrl(scope.row.resourceId, scope.row.name)" style="color:#0391D9;">下载</a>
                                 <a style="color:#0391D9;border-left:1px solid #000;padding-left: 5px;height:15px;" @click.prevent="delStageResources(scope.row.id)" v-if="projectDetail.createId === loginUId">删除</a>
                             </template>
                         </el-table-column>

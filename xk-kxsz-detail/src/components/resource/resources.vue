@@ -55,7 +55,8 @@
                                     </router-link>
                                 </div>
                                 <div class="option" v-if="$ls.get('loginInfo')">
-                                    <a class="dl-btn" :href="downloadUrl(item.fileId, item.name, item.fileExt)" :download="item.name" @click="downloadAdd(item.id, index)">下载</a>
+                                    <!-- <a class="dl-btn" :href="downloadUrl(item.fileId, item.name, item.fileExt)" :download="item.name" @click="downloadAdd(item.id, index)">下载</a> -->
+                                     <a class="dl-btn" href="javascript:;" :download="item.name" @click="downloadAdd(item.fileId, item.name,item.id, index)">下载</a>
                                 </div>
                             </div>
                         </li>
@@ -76,6 +77,7 @@ import tabs from 'Common/tabs.vue'
 import pagination from 'Common/pagination.vue'
 import { requestcFrontendResourceList, requestInterestResourceList, downloadAdd } from '@/service/resource.js'
 import { interceptVideo } from '@/mixin/intercept_video.js'
+ import { fileBaseUrl } from '@/js/common-config.js'
 
 export default {
     name: 'resources',
@@ -244,7 +246,13 @@ export default {
         /*
          * 下载次数加1
          */
-        downloadAdd(id, index) {
+        downloadAdd(resourceId, fileName,id, index) {
+             const link = document.createElement("a");
+                link.style.display = "none";
+                link.href = fileBaseUrl+resourceId;
+                link.setAttribute("download", fileName);
+                document.body.appendChild(link);
+                link.click();
             downloadAdd({ id: id }).then((res) => {
                 if (res.data.code === 200) {
                     this.resourceData[index].downNum ++

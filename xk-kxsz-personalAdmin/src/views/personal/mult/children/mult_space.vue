@@ -28,7 +28,8 @@
                     <div class="address">地址：{{item.address || '暂无地址'}}</div>
                 </div>
                 <div class="option-box verticle-middle">
-                    <a :href="downloadUrl(item.businessPlan, `${item.name}商业策划书`)" :download="`${item.name}商业策划书`">我的商业策划书</a>
+                    <!-- <a :href="downloadUrl(item.businessPlan, `${item.name}商业策划书`)" :download="`${item.name}商业策划书`">我的商业策划书</a> -->
+                    <a href="javascript:;" @click="downloadUrl(item.businessPlan,  `${item.name}商业策划书`)">我的商业策划书</a>
                 </div>
             </li>
         </ul>

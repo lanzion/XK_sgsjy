@@ -18,7 +18,8 @@
                 <el-table-column prop="content" label="入驻说明" show-overflow-tooltip></el-table-column>
                 <el-table-column prop="businessPlan" label="商业策划书" show-overflow-tooltip>
                     <template slot-scope="scope">
-                        <a :href="downloadUrl(scope.row.businessPlan, scope.row.businessPlan)" :download="scope.row.businessPlan" class="business-plan">{{scope.row.businessPlan}}</a>
+                        <!-- <a :href="downloadUrl(scope.row.businessPlan, scope.row.businessPlan)" :download="scope.row.businessPlan" class="business-plan">{{scope.row.businessPlan}}</a> -->
+                        <a href="javascript:;" @click="downloadUrl(scope.row.businessPlan, scope.row.businessPlan)" class="business-plan">{{scope.row.businessPlan}}</a>
                     </template>
                 </el-table-column>
                 <el-table-column prop="auditStatus" label="状态" width="80">

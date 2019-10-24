@@ -336,11 +336,11 @@ export default {
                     const status = response.status
                     const text = ''
                     $('#' + file.id).find('p.state').text(text)
-                    if (status && (status.value === '200' || status.value === '100')) { // 整个上传成功
+                    if (status && (status.value == 200 || status.value == 100)) { // 整个上传成功
                         const filePath = response.data.storeFilePath
                         const $wrapper = $('#' + file.id).find('#wrapper')
                         const $lii = $('#' + file.id).find('.lii')
-                        // $wrapper.addClass('txtHide')
+                        $wrapper.addClass('txtHide')
                         $('<i class="el-icon-circle-check complete"></i>').appendTo($lii)
                     }
                     // else{

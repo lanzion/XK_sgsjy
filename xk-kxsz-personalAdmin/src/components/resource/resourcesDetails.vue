@@ -33,7 +33,8 @@
                         <i class="icon-i-time"></i>上传时间：{{detailsData.createDate | dateFormat('yyyy-MM-dd')}}
                     </p>
                 </div>
-                <a class="dl-btn" v-if="$ls.get('loginInfo')" :href="downloadUrl(detailsData.fileId, detailsData.name)" :download="detailsData.name" @click="downloadAdd">下载</a>
+                <!-- <a class="dl-btn" v-if="$ls.get('loginInfo')" :href="downloadUrl(detailsData.fileId, detailsData.name)" :download="detailsData.name" @click="downloadAdd">下载</a> -->
+                <a class="dl-btn" v-if="$ls.get('loginInfo')" href="javascript:;" :download="detailsData.name" @click="downloadAdd(detailsData.fileId, detailsData.name)">下载</a>
             </section>
             <!-- 评价部分 -->
             <evaluate-details :evaluateData="evaluateData" v-if="detailsData.auditStatus == 1" class="bgw" style="padding:15px;"></evaluate-details>
@@ -74,6 +75,7 @@ import comPanelEvent from 'Common/button/com_panel_event.vue'
 import list from 'Common/classificationList/list/graphic/list.vue'
 import imgPreview from '@/components/common/img_preview/img_preview.vue'
 import docReader from './doc_reader.vue'
+import { fileBaseUrl } from 'Asset/js/common-config.js'
 
 // const color = {
 //     red: ['#f85959', '#fee0e0'],
@@ -184,7 +186,13 @@ export default {
         /*
          * 下载次数加1
          */
-        downloadAdd() {
+        downloadAdd(resourceId, fileName) {
+            const link = document.createElement('a')
+            link.style.display = 'none'
+            link.href = fileBaseUrl + resourceId
+            link.setAttribute('download', fileName)
+            document.body.appendChild(link)
+            link.click()
             downloadAdd({ id: this.$route.query.id }).then((res) => {
                 if (res.data.code === 200) {
                     this.detailsData.downNum ++

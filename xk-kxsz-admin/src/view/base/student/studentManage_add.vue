@@ -90,21 +90,21 @@
                 </el-form-item>
             </el-row>
             <!-- 手机 -->
-            <!-- <el-row v-if="disabled">
+            <el-row v-if="disabled">
                 <el-form-item label="手机" prop="phone">
                     <el-col :span="8">
-                        <el-input v-model="form.phone" placeholder="请输入手机" disabled></el-input>
+                        <el-input v-model="form.phone" placeholder="请输入手机" :disabled="isReadOnly"></el-input>
                     </el-col>
                 </el-form-item>
-            </el-row> -->
+            </el-row>
             <!-- 电子邮箱 -->
-            <!-- <el-row v-if="disabled">
+            <el-row v-if="disabled">
                 <el-form-item label="电子邮箱" prop="email">
                     <el-col :span="8">
-                        <el-input v-model="form.email" placeholder="请输入电子邮箱" disabled></el-input>
+                        <el-input v-model="form.email" placeholder="请输入电子邮箱" :disabled="isReadOnly"></el-input>
                     </el-col>
                 </el-form-item>
-            </el-row> -->
+            </el-row>
             <!-- 联系地址 -->
             <el-row>
                 <el-form-item label="联系地址" prop="address">
@@ -257,12 +257,12 @@ export default {
                 interest: [
                     { type: 'array', message: '请选择兴趣', trigger: 'change' }
                 ],
-                // phone: [
-                //     { validator: validatePhone, required: true, trigger: 'change' }
-                // ],
-                // email: [
-                //     { validator: validateEmail, required: true, trigger: 'change' }
-                // ],
+                phone: [
+                    { validator: validatePhone, required: true, trigger: 'change' }
+                ],
+                email: [
+                    { validator: validateEmail, required: true, trigger: 'change' }
+                ],
                 address: [
                     { message: '请输入联系地址', trigger: 'change' }
                 ],

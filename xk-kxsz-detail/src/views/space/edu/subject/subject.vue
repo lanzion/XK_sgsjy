@@ -40,7 +40,8 @@
                     <template slot-scope="scope">{{ scope.row.updateDate | dateFormat('yyyy-MM-dd')}}</template>
                 </el-table-column>
                 <el-table-column label="操作" width="80">
-                    <template slot-scope="scope"><a :href="downloadUrl(scope.row.resourceId, scope.row.name)" :download="scope.row.name" style="color:#00a0e9;">下载</a></template>
+                    <!-- <template slot-scope="scope"><a :href="downloadUrl(scope.row.resourceId, scope.row.name)" :download="scope.row.name" style="color:#00a0e9;">下载</a></template> -->
+                    <template slot-scope="scope"><a @click="downloadUrl(scope.row.resourceId, scope.row.name)" style="color:#00a0e9;">下载</a></template>
                 </el-table-column>
             </el-table>
         </div>

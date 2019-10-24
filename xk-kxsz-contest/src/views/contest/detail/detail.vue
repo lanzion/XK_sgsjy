@@ -15,7 +15,8 @@
                 <li class="attList_title fl">附件:</li>
                 <!-- <li v-for="(i, k)  in attList" class="attList_li"> <a :href="downloadUrl(i.resourceId, i.name)" :download="i.name" class="btn" title="下载">{{ i.name }} </a></li> -->
                 <li v-for="(i, k)  in attList" class="attList_li" :key="k">
-                    <a :href="downloadUrl(i.resourceId, i.name)" :download="i.name" class="btn" title="下载">{{ i.name }} </a>
+                    <!-- <a :href="downloadUrl(i.resourceId, i.name)" :download="i.name" class="btn" title="下载">{{ i.name }} </a> -->
+                    <a href="javascript:;" @click="downloadUrl(i.resourceId, i.name )" class="btn" title="下载">{{ i.name }} </a>
                 </li>
             </ul>
         </div>

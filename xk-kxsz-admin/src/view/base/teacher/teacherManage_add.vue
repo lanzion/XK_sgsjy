@@ -75,7 +75,7 @@
             <el-row v-if="disabled">
                 <el-form-item label="手机" prop="phone">
                     <el-col :span="8">
-                        <el-input v-model="form.phone" placeholder="请输入手机" disabled></el-input>
+                        <el-input v-model="form.phone" placeholder="请输入手机" :disabled="isReadOnly"></el-input>
                     </el-col>
                 </el-form-item>
             </el-row>
@@ -83,7 +83,7 @@
             <el-row v-if="disabled">
                 <el-form-item label="电子邮箱" prop="email">
                     <el-col :span="8">
-                        <el-input v-model="form.email" placeholder="请输入电子邮箱" disabled></el-input>
+                        <el-input v-model="form.email" placeholder="请输入电子邮箱" :disabled="isReadOnly"></el-input>
                     </el-col>
                 </el-form-item>
             </el-row>
@@ -224,12 +224,12 @@ export default {
                 teach: [
                     { type: 'array', message: '请选择任教', trigger: 'change' }
                 ],
-                // phone: [
-                //     { validator: validatePhone, required: true, trigger: 'change' }
-                // ],
-                // email: [
-                //     { validator: validateEmail, required: true, trigger: 'change' }
-                // ],
+                phone: [
+                    { validator: validatePhone, required: true, trigger: 'change' }
+                ],
+                email: [
+                    { validator: validateEmail, required: true, trigger: 'change' }
+                ],
                 address: [
                     { message: '请输入联系地址', trigger: 'change' }
                 ],

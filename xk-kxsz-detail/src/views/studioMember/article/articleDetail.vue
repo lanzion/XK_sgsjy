@@ -17,7 +17,10 @@
                 <h6 class="attachment-title fl">附件：</h6>
                 <ul class="fl">
                     <li class="attachment-item" v-for="(item, index) in detailDate.studioAttachments">
-                        <a :href="downloadUrl(item.resourceId, item.name)" :download="item.name" class="blue" title="下载">
+                        <!-- <a :href="downloadUrl(item.resourceId, item.name)" :download="item.name" class="blue" title="下载">
+                            {{item.name}}
+                        </a> -->
+                        <a @click="downloadUrl(item.resourceId, item.name)" class="blue" title="下载">
                             {{item.name}}
                         </a>
                     </li>

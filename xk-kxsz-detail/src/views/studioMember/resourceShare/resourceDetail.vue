@@ -29,7 +29,8 @@
                         <i class="icon-i-time"></i>上传时间：{{detailsData.createDate | dateFormat('yyyy-MM-dd')}}
                     </p>
                 </div>
-                <a class="dl-btn" :href="downloadUrl(detailsData.resourceId, detailsData.name)" :download="detailsData.name" @click="downloadAdd">下载</a>
+                <!-- <a class="dl-btn" :href="downloadUrl(detailsData.resourceId, detailsData.name)" :download="detailsData.name" @click="downloadAdd">下载</a> -->
+                <a class="dl-btn" href="javascript:;"  @click="downloadAdd(detailsData.resourceId, detailsData.name)">下载</a>
             </section>
             <!-- 评价部分 -->
             <evaluate-details :evaluateData="evaluateData" class="bgw" style="padding:15px;"></evaluate-details>
@@ -167,7 +168,13 @@ export default {
         /*
          * 下载次数加1
          */
-        downloadAdd() {
+        downloadAdd(resourceId, fileName) {
+            const link = document.createElement("a");
+                link.style.display = "none";
+                link.href = fileBaseUrl+resourceId;
+                link.setAttribute("download", fileName);
+                document.body.appendChild(link);
+                link.click();
             downloadAdd({ id: this.$route.query.resId }).then((res) => {
                 if (res.data.code === 200) {
                     this.detailsData.downNum ++

@@ -11,7 +11,8 @@
             </div>
             <ul class="attList" v-if="detail.portalNoticeDetailResource && detail.portalNoticeDetailResource.length">
                 <li class="attList_title fl">附件:</li>
-                <li v-for="(i, k) in detail.portalNoticeDetailResource" class="attList_li"> <a :href="downloadUrl(i.resourceId, i.resourceName)" :download="i.resourceId.split('/')[i.resourceId.split('/').length - 1]" class="btn" title="下载">{{ i.resourceName }} </a></li>
+                <!-- <li v-for="(i, k) in detail.portalNoticeDetailResource" class="attList_li"> <a :href="downloadUrl(i.resourceId, i.resourceName)" :download="i.resourceId.split('/')[i.resourceId.split('/').length - 1]" class="btn" title="下载">{{ i.resourceName }} </a></li> -->
+                <li v-for="(i, k) in detail.portalNoticeDetailResource" class="attList_li"> <a @click="downloadUrl(i.resourceId, i.resourceId.split('/')[i.resourceId.split('/').length - 1] )" class="btn" title="下载">{{ i.resourceName }} </a></li>
             </ul>
         </div>
      </div>

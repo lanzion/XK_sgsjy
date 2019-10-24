@@ -23,7 +23,8 @@
                 <el-table-column label="操作" v-if="isCreater || isMember">
                     <template slot-scope="scope">
                         <del-popover v-if="isCreater" title="删除" class="delete" :delData="{ url:'maker/subject/result/del', params:{id: scope.row.id}, name:'成果' }" @callback="callback"></del-popover>
-                        <a title="下载" class="icon-btn-download" style="vertical-align: top;" :href="downloadUrl(scope.row.resourceId, scope.row.name)" :download="scope.row.name"></a>
+                        <!-- <a title="下载" class="icon-btn-download" style="vertical-align: top;" :href="downloadUrl(scope.row.resourceId, scope.row.name)" :download="scope.row.name"></a> -->
+                        <a title="下载" class="icon-btn-download" style="vertical-align: top;" @click="downloadUrl(scope.row.resourceId, scope.row.name)"></a>
                     </template>
                 </el-table-column>
             </el-table>

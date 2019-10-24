@@ -135,7 +135,8 @@
 			</dt>
 			<dd class="detail-item-content" v-if="detail.fileAttchList != null && detail.fileAttchList.length">
 				<div v-if="ifManage">
-					<a class="" v-for="(file, index) in detail.fileAttchList" :href="downloadUrl(file.resourceId, file.name)" :download="file.name" :title="file.name">{{file.name}}</a>
+					<!-- <a class="" v-for="(file, index) in detail.fileAttchList" :href="downloadUrl(file.resourceId, file.name)" :download="file.name" :title="file.name">{{file.name}}</a> -->
+					<a class="" v-for="(file, index) in detail.fileAttchList" href="javascript:;" @click="downloadUrl(file.resourceId, file.name )" :title="file.name">{{file.name}}</a>
 				</div>
 				<div v-else>
 					<p class="" v-for="(file, index) in detail.fileAttchList">{{file.name}}</p>

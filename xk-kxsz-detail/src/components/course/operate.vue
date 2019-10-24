@@ -5,7 +5,8 @@
     <a v-if="generateIcon('edit')" @click.stop="editItem" href="javascript:;" class="btn-edit btn" title="编辑"><i class="icon-btn-edit2 icon"></i></a>
     <a v-if="generateIcon('share')" href="javascript:;" class="btn-share btn" title="分享"><i class="icon-btn-share icon"></i></a>
     <a v-if="generateIcon('submit')" href="javascript:;" class="btn-submit btn" title="提交"><i class="icon-btn-submit icon"></i></a>
-    <a v-if="generateIcon('download')" :href="downloadUrl(downloadResource.id, downloadResource.name, downloadResource.fileExt)" :download="downloadResource.name" class="btn-download btn" title="下载"><i class="icon-btn-download icon"></i></a>
+    <!-- <a v-if="generateIcon('download')" :href="downloadUrl(downloadResource.id, downloadResource.name, downloadResource.fileExt)" :download="downloadResource.name" class="btn-download btn" title="下载"><i class="icon-btn-download icon"></i></a> -->
+    <a v-if="generateIcon('download')" @click="downloadUrl(downloadResource.id, downloadResource.name)" class="btn-download btn" title="下载"><i class="icon-btn-download icon"></i></a>
     <a v-if="generateIcon('delete')" @mouseenter="popoverIsVisible = true" @mouseleave="popoverIsVisible = false" href="javascript:;" class="btn-delete btn">
       <i class="icon-btn-delete icon"></i>
       <transition name="zoom">

@@ -43,7 +43,10 @@
                 <dl class="clearfix">
                     <dt class="fl">附件：</dt>
                     <dd class="content-right fl" v-if="resultDetail.resourceId">
-                        <a class="fl" :href="downloadUrl(resultDetail.resourceId, resultDetail.resourceName)" :download="resultDetail.resourceName">
+                        <!-- <a class="fl" :href="downloadUrl(resultDetail.resourceId, resultDetail.resourceName)" :download="resultDetail.resourceName">
+                            {{resultDetail.resourceName}}
+                        </a> -->
+                        <a class="fl"  @click="downloadUrl(resultDetail.resourceId, resultDetail.resourceName )">
                             {{resultDetail.resourceName}}
                         </a>
                     </dd>

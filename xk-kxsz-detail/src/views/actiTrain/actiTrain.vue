@@ -692,6 +692,17 @@ export default {
               this.form.cityId,
               this.form.areaId
             ];
+            getComboxByArea({
+          provinceId: this.form.provinceId,
+          cityId: this.form.cityId,
+          areaId: this.form.areaId
+        }).then(res => {
+          let datas = res.data;
+          if (datas.code == 200) {
+            this.schoolList = datas.appendInfo.comboxList;
+            if(!this.schoolList.length) this.form.schoolId = '';
+          }
+        });
             console.log(this.form);
           }
         }

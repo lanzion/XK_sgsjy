@@ -31,21 +31,27 @@ export default {
     },
     // 下载文件
     downloadUrl (resourceId, fileName, fileExt){
-      const hasDownloadProp = 'download' in document.createElement('a');
-      const ua = navigator.userAgent
-      const isFireFox = /firefox\/(\d+\.\d+)/i.test(ua)
-      const flag = isFireFox ? false : hasDownloadProp
-      let suffix = ''
-      if (resourceId) {
-        const _len = resourceId.split('.').length - 1
-        suffix = _len ? resourceId.split('.')[_len] : ''
-      }
-      const name = fileName && fileName.includes(`.${suffix}`) ? fileName : `${fileName}.${suffix}`
-      if (flag) {
-        return fileBaseUrl + resourceId + `?filename=${name}`
-      }else{
-        return fileDownLoad + resourceId + `&filename=${name}`
-      }
+      // const hasDownloadProp = 'download' in document.createElement('a');
+      // const ua = navigator.userAgent
+      // const isFireFox = /firefox\/(\d+\.\d+)/i.test(ua)
+      // const flag = isFireFox ? false : hasDownloadProp
+      // let suffix = ''
+      // if (resourceId) {
+      //   const _len = resourceId.split('.').length - 1
+      //   suffix = _len ? resourceId.split('.')[_len] : ''
+      // }
+      // const name = fileName && fileName.includes(`.${suffix}`) ? fileName : `${fileName}.${suffix}`
+      // if (flag) {
+      //   return fileBaseUrl + resourceId + `?filename=${name}`
+      // }else{
+      //   return fileDownLoad + resourceId + `&filename=${name}`
+      // }
+      const link = document.createElement("a");
+            link.style.display = "none";
+            link.href = fileBaseUrl+resourceId;
+            link.setAttribute("download", fileName);
+            document.body.appendChild(link);
+            link.click();
     },
     // 进入空间判定
     dynamicPath ({identity, orgId: id, userId: uid}) {

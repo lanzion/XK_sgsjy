@@ -18,7 +18,11 @@
     <a v-if="generateIcon('submit')" @click.stop="submitItem" href="javascript:;" class="btn" title="提交审核">
       <i class="icon-btn-submit icon"></i>
     </a>
-    <a v-if="generateIcon('download')" :href="downloadUrl(downloadResource.id, downloadResource.name)" :download="downloadResource.name"
+    <!-- <a v-if="generateIcon('download')" :href="downloadUrl(downloadResource.id, downloadResource.name)" :download="downloadResource.name"
+       class="btn" title="下载">
+      <i class="icon-btn-download icon"></i>
+    </a> -->
+    <a v-if="generateIcon('download')" href="javascript:;" @click="downloadUrl(downloadResource.id, downloadResource.name)"
        class="btn" title="下载">
       <i class="icon-btn-download icon"></i>
     </a>
