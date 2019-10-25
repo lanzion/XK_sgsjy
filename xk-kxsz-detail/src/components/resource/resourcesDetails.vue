@@ -39,7 +39,7 @@
                     </p>
                 </div>
                 <!-- <a class="dl-btn" v-if="$ls.get('loginInfo')" :href="downloadUrl(detailsData.fileId, detailsData.name, detailsData.fileExt)" :download="detailsData.name" @click="downloadAdd">下载</a> -->
-                <a class="dl-btn" href="javascript:;" :download="item.name" @click="downloadAdd(detailsData.fileId, detailsData.name)">下载</a>    
+                <a class="dl-btn" href="javascript:;"  @click="downloadAdd(detailsData.fileId, detailsData.name)">下载</a>    
             </section>
             <!-- 评价部分 -->
             <evaluate-details :evaluateData="evaluateData" v-if="detailsData.auditStatus == 1" class="bgw" style="padding:15px;"></evaluate-details>
