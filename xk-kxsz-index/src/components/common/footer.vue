@@ -17,7 +17,7 @@
                     </li>
                 </ul>
                 <p>版权所有：广州杰赛科技股份有限公司</p>
-                <p>地址：广州市海珠区新港中路381号</p>
+                <!-- <p>地址：广州市海珠区新港中路381号</p> -->
             </section>
             <section class='footer-box'>
                 <h4 class='footer-header'>客户服务</h4>

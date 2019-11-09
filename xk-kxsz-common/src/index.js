@@ -4,7 +4,6 @@ import Cookies from './assets/js/cookies.js'
 import Header from './components/header/index.js'
 import Footer from './components/footer/index.js'
 import Login from './components/login/index.js'
-import Upload from './components/upload/index.js'
 import SideTools from './components/side-tools/index.js'
 import Feedback from './components/feedback/index.js'
 import WxQRCode from './components/wx-qrcode/index.js'
@@ -20,7 +19,6 @@ const components = [
   Header,
   Footer,
   Login,
-  Upload,
   SideTools,
   Feedback,
   WxQRCode,
@@ -54,7 +52,6 @@ export {
   Header,
   Footer,
   Login,
-  Upload,
   SideTools,
   Feedback,
   WxQRCode,
@@ -72,7 +69,6 @@ export default {
   Header,
   Footer,
   Login,
-  Upload,
   SideTools,
   Feedback,
   WxQRCode,

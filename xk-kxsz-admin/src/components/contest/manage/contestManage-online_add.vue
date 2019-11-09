@@ -72,7 +72,7 @@
         </el-form-item>
       </el-row>
       <!-- 竞赛分组 -->
-      <el-row v-if="form.actorType==1">
+      <!-- <el-row v-if="form.actorType==1">
         <el-form-item label="竞赛分组" prop="actorGroup">
           <el-col :span="8">
             <el-checkbox-group v-model="form.actorGroup">
@@ -91,7 +91,7 @@
             </p>
           </el-col>
         </el-form-item>
-      </el-row>
+      </el-row> -->
       <!-- 参赛形式 -->
       <el-row>
         <el-form-item label="参赛形式" prop="actorWay">
@@ -479,14 +479,14 @@ export default {
         actorType: [
           { required: true, message: "请选择参赛人群", trigger: "change" }
         ],
-        actorGroup: [
-          {
-            required: true,
-            type: "array",
-            message: "请选择竞赛分组",
-            trigger: "blur"
-          }
-        ],
+        // actorGroup: [
+        //   {
+        //     required: true,
+        //     type: "array",
+        //     message: "请选择竞赛分组",
+        //     trigger: "blur"
+        //   }
+        // ],
         actorWay: [
           {
             required: true,

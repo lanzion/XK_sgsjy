@@ -29,7 +29,7 @@ function initWebUpload() {
                 // file.uid = new Date().getTime() + "_" + Math.random() * 100;
                 file.uid = WebUploader.Base.guid()
                 // 进行md5判断
-                $.post((fileUploadAddress + '/file/authnw/checkFileMd5?md5='+ file.md5 +'&name='+file.name), { uid: file.uid, md5: file.md5 },
+                $.post((fileUploadAddress + '/file/authnw/checkFileMd5?md5='+ file.md5 +'&name='+window.encodeURI(file.name)), { uid: file.uid, md5: file.md5 },
                     function (data) {
                         const status = data.status.value
                         task.resolve()

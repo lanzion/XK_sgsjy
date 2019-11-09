@@ -17,7 +17,7 @@
                     </li>
                 </ul>
                 <p>版权所有：广东省韶关市教育局&nbsp;&nbsp;&nbsp;&nbsp;技术支持：广州杰赛科技股份有限公司</p>
-                <p>地址：广东省韶关市芙蓉新城芙蓉园25栋（邮编：512029）</p>
+                <!-- <p>地址：广东省韶关市芙蓉新城芙蓉园25栋（邮编：512029）</p> -->
             </section>
             <section class='footer-box'>
                 <h4 class='footer-header'>客户服务</h4>

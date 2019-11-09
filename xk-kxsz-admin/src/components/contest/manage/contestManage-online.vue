@@ -41,11 +41,11 @@
                     {{scope.row.enrollStartDate | dateFormat('yyyy.MM.dd')}} - {{scope.row.enrollEndDate | dateFormat('yyyy.MM.dd')}}
                 </template>
             </el-table-column>
-            <el-table-column prop="actorGroup" label="竞赛分组" show-overflow-tooltip>
+            <!-- <el-table-column prop="actorGroup" label="竞赛分组" show-overflow-tooltip>
                 <template scope="scope">
                     {{scope.row.actorGroup | translate(actorGroupDL, { key: 'id' })}}
                 </template>
-            </el-table-column>
+            </el-table-column> -->
             <el-table-column prop="actorWay" label="竞赛形式" show-overflow-tooltip>
                 <template scope="scope">
                     {{scope.row.actorWay | translate(actorWayDL)}}
