@@ -82,7 +82,7 @@ export default {
     data() {
         return {
             breadcrumb: [
-                { path: '/street', name: '活动街区' },
+                { path: '/street', name: '评审活动' },
                 { path: '', name: '交流活动列表' }
             ],
             tabs: [

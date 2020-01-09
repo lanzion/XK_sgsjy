@@ -48,12 +48,12 @@
                 <el-table-column prop="phaseName" label="所在赛程"></el-table-column>
                 <el-table-column prop="browseNum" label="浏览数" show-overflow-tooltip width="80"></el-table-column>
                 <el-table-column prop="praiseNum" label="点赞数" show-overflow-tooltip width="80"></el-table-column>
-                <el-table-column prop="score" label="评分" show-overflow-tooltip width="80"></el-table-column>
-                <el-table-column prop="auditStatus" label="操作">
-                    <template slot-scope="scope">
+                <!-- <el-table-column prop="score" label="评分" show-overflow-tooltip width="80"></el-table-column> -->
+                <!-- <el-table-column prop="auditStatus" label="操作"> -->
+                    <!-- <template slot-scope="scope"> -->
                         <!-- <button type="button" class="btn" :class="{'disabled': !!scope.row.isAlloc}" :disabled="!!scope.row.isAlloc" @click="singleDel(scope.row)">删除</button> | -->
-                        <button type="button" class="btn" @click="matchRecord(scope.row.id)">参赛记录</button>
-                    </template>
+                        <!-- <button type="button" class="btn" @click="matchRecord(scope.row.id)">参赛记录</button> -->
+                    <!-- </template> -->
                 </el-table-column>
             </el-table>
             <v-pagination :param.sync="pageParam" @callback="changePage"></v-pagination>

@@ -2,40 +2,68 @@
     <div class="wrap container">
         <h1 class="title">
             <span :title="detail.title">{{ detail.title }}</span>
-            <component :is="entryButton[$route.query.type].component" v-bind="{ addRoute, enrollHandler:entryButton[$route.query.type].handler  }" class="fr"></component>
+            <component
+                :is="entryButton[$route.query.type].component"
+                v-bind="{ addRoute, enrollHandler:entryButton[$route.query.type].handler  }"
+                class="fr"
+            ></component>
         </h1>
-        <div class="banner-img bg-img__wrap" title="点击查看原图" @click="visible.show = true" :style='{backgroundImage: "url(" + getFileUrl(detail.cover) + "), url(" + listDefault + ")"}'></div>
+        <div
+            class="banner-img bg-img__wrap"
+            title="点击查看原图"
+            @click="visible.show = true"
+            :style="{backgroundImage: 'url(' + getFileUrl(detail.cover) + '), url(' + listDefault + ')'}"
+        ></div>
         <nav class="title_nav">
-            <router-link class="title_nav_link" v-for="(item, index) in navList" :key="index" :to="{ path: item.path, query: { id: $route.query.id, type: $route.query.type } }">{{ item.name }}</router-link>
+            <router-link
+                class="title_nav_link"
+                v-for="(item, index) in navList"
+                :key="index"
+                :to="{ path: item.path, query: { id: $route.query.id, type: $route.query.type } }"
+            >{{ item.name }}</router-link>
         </nav>
         <router-view :detail="detail"></router-view>
         <el-dialog title="报名参赛" :visible.sync="enrolPopover" size="tiny">
             <el-form ref="form" :model="form" label-width="90px" :rules="rules">
-                <el-form-item label="参赛人:">
-                    {{ matchMessage.userName }}
-                </el-form-item>
+                <el-form-item label="参赛人:">{{ matchMessage.userName }}</el-form-item>
                 <el-form-item label="所在地区:">
-                    <span v-if="matchMessage.provinceName || matchMessage.cityName || matchMessage.areaName">{{ matchMessage.provinceName }}{{ matchMessage.cityName }}{{ matchMessage.areaName }}</span>
+                    <span
+                        v-if="matchMessage.provinceName || matchMessage.cityName || matchMessage.areaName"
+                    >{{ matchMessage.provinceName }}{{ matchMessage.cityName }}{{ matchMessage.areaName }}</span>
                     <span v-else>暂无信息</span>
                 </el-form-item>
-                <el-form-item label="所在学校:">
-                    {{ matchMessage.schoolName }}
-                </el-form-item>
-                <el-form-item label="竞赛分组:" v-if="$ls.get('userIdentity') === 'student'">
-                    {{ gradeId }}
-                </el-form-item>
+                <el-form-item label="所在学校:">{{ matchMessage.schoolName }}</el-form-item>
+                <el-form-item
+                    label="竞赛分组:"
+                    v-if="$ls.get('userIdentity') === 'student'"
+                >{{ gradeId }}</el-form-item>
                 <el-form-item label="参赛分类:" prop="projectIdArr">
                     <el-checkbox-group v-model="form.projectIdArr" :min="1">
-                        <el-checkbox :label="i.id" v-for="(i, k) in projectIdOptions" :key="k">{{ i.name }}</el-checkbox>
+                        <el-checkbox
+                            :label="i.id"
+                            v-for="(i, k) in projectIdOptions"
+                            :key="k"
+                        >{{ i.name }}</el-checkbox>
                     </el-checkbox-group>
                 </el-form-item>
                 <el-form-item label="参赛形式:" prop="actorWayArr">
                     <el-checkbox-group v-model="form.actorWayArr" :min="1">
-                        <el-checkbox :label="i.id" v-for="(i, k) in actorWayOptions" :key="k">{{ i.name }}</el-checkbox>
+                        <el-checkbox
+                            :label="i.id"
+                            v-for="(i, k) in actorWayOptions"
+                            :key="k"
+                        >{{ i.name }}</el-checkbox>
                     </el-checkbox-group>
                 </el-form-item>
                 <el-form-item label="参赛宣言:">
-                    <el-input type="textarea" :rows="5" placeholder="请输入内容" v-model="form.slogan" resize="none" style="margin-top:10px;"></el-input>
+                    <el-input
+                        type="textarea"
+                        :rows="5"
+                        placeholder="请输入内容"
+                        v-model="form.slogan"
+                        resize="none"
+                        style="margin-top:10px;"
+                    ></el-input>
                 </el-form-item>
                 <el-form-item class="pt20">
                     <button type="button" class="group_button sure fr ml15" @click="submit">参赛</button>
@@ -53,17 +81,29 @@ import banner from '@/components/common/banner.vue'
 import imgPreview from '@/components/common/img_preview/img_preview.vue'
 import entranceButtonOnline from '@/components/detail/entrance_button_online.vue'
 import entranceButtonOffline from '@/components/detail/entrance_button_offline.vue'
-import { requestDetail, requestOfflineDetail, requestIsApply, requestMatchActor, requestAdd, judgeTakepartIn, requestMatchProject, judgeExpert, judgeManage, offlineIsApply } from '@/service/contest_detail.js'
+import {
+    requestDetail,
+    requestOfflineDetail,
+    requestIsApply,
+    requestMatchActor,
+    requestAdd,
+    judgeTakepartIn,
+    requestMatchProject,
+    judgeExpert,
+    judgeManage,
+    offlineIsApply
+} from '@/service/contest_detail.js'
 
 export default {
     components: {
         'v-banner': banner,
         'img-preview': imgPreview,
         'v-entry-btn-on': entranceButtonOnline,
-        'v-entry-btn-off': entranceButtonOffline,
+        'v-entry-btn-off': entranceButtonOffline
     },
     data() {
-        const baseInfo = this.$ls.get('baseInfo') && this.$ls.get('baseInfo').baseInfo
+        const baseInfo =
+            this.$ls.get('baseInfo') && this.$ls.get('baseInfo').baseInfo
         return {
             // 登录信息
             baseInfo: baseInfo,
@@ -71,7 +111,7 @@ export default {
                 { path: '/contest/detail', name: '竞赛详情' },
                 { path: '/contest/dynamic', name: '竞赛动态' },
                 // { path: '/contest/works', name: '参赛作品' },
-                { path: '/contest/awards', name: '获奖作品' },
+                { path: '/contest/awards', name: '获奖作品' }
                 // { path: '/contest/comment', name: '评论专区' }
             ],
             entryButton: {
@@ -98,9 +138,11 @@ export default {
                 actorGroup: '',
                 actorWay: '',
                 slogan: '',
-                projectList: [{
-                    projectId: ''
-                }],
+                projectList: [
+                    {
+                        projectId: ''
+                    }
+                ],
                 projectIdArr: [],
                 actorWayArr: []
             },
@@ -114,14 +156,25 @@ export default {
             matchMessage: {},
             // 表单验证
             rules: {
-                projectIdArr: { required: true, type: 'array', message: '请选择参赛分类', trigger: 'change' },
-                actorWayArr: { required: true, type: 'array', message: '请选择参赛形式', trigger: 'change' },
+                projectIdArr: {
+                    required: true,
+                    type: 'array',
+                    message: '请选择参赛分类',
+                    trigger: 'change'
+                },
+                actorWayArr: {
+                    required: true,
+                    type: 'array',
+                    message: '请选择参赛形式',
+                    trigger: 'change'
+                }
             },
             identity: this.$ls.get('userIdentity') || '', // 登录用户身份
-            visible: { // 查看大图的控制
+            visible: {
+                // 查看大图的控制
                 show: false
             },
-            nowTime: new Date().getTime(),
+            nowTime: new Date().getTime()
         }
     },
     created() {
@@ -130,7 +183,7 @@ export default {
                 { path: '/contest/detail', name: '竞赛详情' },
                 { path: '/contest/dynamic', name: '竞赛动态' },
                 { path: '/contest/works', name: '参赛展示' },
-                { path: '/contest/awards', name: '获奖展示' },
+                { path: '/contest/awards', name: '获奖展示' }
                 // { path: '/contest/comment', name: '评论专区' }
             ]
         }
@@ -139,7 +192,7 @@ export default {
         this.init()
         this.getDetail()
         this.groupingFilter()
-        requestMatchProject({ id: this.$route.query.id }).then((res) => {
+        requestMatchProject({ id: this.$route.query.id }).then(res => {
             if (res.data.code === 200) {
                 this.projectIdOptions = res.data.entity
             }
@@ -170,7 +223,7 @@ export default {
         },
         toMyReview() {
             if (this.baseInfo) {
-                judgeExpert({ matchId: this.$route.query.id }).then((res) => {
+                judgeExpert({ matchId: this.$route.query.id }).then(res => {
                     if (res.data.code === 200) {
                         this.addRoute('review')
                     } else {
@@ -178,7 +231,11 @@ export default {
                     }
                 })
             } else if (this.identity === 'admin') {
-                this.showMessage('info', '温馨提示：您不是本赛事的评审专家，去欣赏参赛作品吧', 2000)
+                this.showMessage(
+                    'info',
+                    '温馨提示：您不是本赛事的评审专家，去欣赏参赛作品吧',
+                    2000
+                )
             } else {
                 this.$store.commit('toggleLoginModal', true)
             }
@@ -211,14 +268,19 @@ export default {
             this.actorWay = []
         },
         submit() {
-            this.$refs.form.validate((valid) => {
+            this.$refs.form.validate(valid => {
                 if (valid) {
-                    this.form.projectList = this.form.projectIdArr.map(i => ({ projectId: i }))
+                    this.form.projectList = this.form.projectIdArr.map(i => ({
+                        projectId: i
+                    }))
                     this.form.actorWay = this.form.actorWayArr.join(',')
-                    requestAdd(this.form).then((res) => {
+                    requestAdd(this.form).then(res => {
                         if (res.data.code === 200) {
                             this.close()
-                            this.$message({ type: 'success', message: '报名成功' })
+                            this.$message({
+                                type: 'success',
+                                message: '报名成功'
+                            })
                         } else {
                             this.showMessage('info', res.data.msg)
                         }
@@ -232,7 +294,7 @@ export default {
         // 参赛入口
         toPlay() {
             if (this.$ls.get('baseInfo')) {
-                judgeTakepartIn({ matchId: this.$route.query.id }).then((res) => {
+                judgeTakepartIn({ matchId: this.$route.query.id }).then(res => {
                     if (res.data.code === 200) {
                         this.addRoute('myPlay')
                     } else {
@@ -240,7 +302,11 @@ export default {
                     }
                 })
             } else if (this.identity === 'admin') {
-                this.showMessage('info', '温馨提示：您的身份不符合参赛要求，去欣赏参赛作品吧', 2000)
+                this.showMessage(
+                    'info',
+                    '温馨提示：您的身份不符合参赛要求，去欣赏参赛作品吧',
+                    2000
+                )
             } else {
                 this.$store.commit('toggleLoginModal', true)
             }
@@ -248,34 +314,77 @@ export default {
         // 报名参赛
         enrolContest(item) {
             if (this.$ls.get('baseInfo')) {
-                if (this.identity !== 'student' && this.identity !== 'teacher') {
-                    this.showMessage('info', '温馨提示：您的身份不符合参赛要求，去欣赏参赛作品吧', 2000)
+                if (
+                    this.identity !== 'student' &&
+                    this.identity !== 'teacher'
+                ) {
+                    this.showMessage(
+                        'info',
+                        '温馨提示：您的身份不符合参赛要求，去欣赏参赛作品吧',
+                        2000
+                    )
                 } else {
-                    offlineIsApply({ matchId: this.$route.query.id, projectId: item.projectId }).then((res) => {
+                    offlineIsApply({
+                        matchId: this.$route.query.id,
+                        projectId: item.projectId
+                    }).then(res => {
                         if (res.data.code === 200) {
-                            if (res.data.appendInfo.isApply === -1 && this.nowTime < (this.detail.enrollEndDate + 86400000)) {
-                                if (item.projectId === 'ef2aab6a6007452ca6e5e989e9ac3dce' || item.projectId === '64f761e2f43349c4a99f1ed654859a60') {
-                                    this.addRoute('enroll', false, item.projectId)
+                            if (
+                                res.data.appendInfo.isApply === -1 &&
+                                this.nowTime <
+                                    this.detail.enrollEndDate + 86400000
+                            ) {
+                                if (
+                                    item.projectId ===
+                                        'ef2aab6a6007452ca6e5e989e9ac3dce' ||
+                                    item.projectId ===
+                                        '64f761e2f43349c4a99f1ed654859a60'
+                                ) {
+                                    this.addRoute(
+                                        'enroll',
+                                        false,
+                                        item.projectId
+                                    )
                                 } else {
-                                    this.$message({ message: '该项目类型报名已结束' })
+                                    this.$message({
+                                        message: '该项目类型报名已结束'
+                                    })
                                 }
-                            } else if (res.data.appendInfo.isApply === -1 && this.nowTime > (this.detail.enrollEndDate + 86400000)) {
+                            } else if (
+                                res.data.appendInfo.isApply === -1 &&
+                                this.nowTime >
+                                    this.detail.enrollEndDate + 86400000
+                            ) {
                                 this.$message({ message: '报名已结束' })
-                            } else if (res.data.appendInfo.isApply === 1 && this.nowTime < (this.detail.offlinePhasesList[0].startDate + 86400000)) {
+                            } else if (
+                                res.data.appendInfo.isApply === 1 &&
+                                this.nowTime <
+                                    this.detail.offlinePhasesList[0].startDate +
+                                        86400000
+                            ) {
                                 this.addRoute('enroll', false, item.projectId)
-                            } else if (this.nowTime > (this.detail.offlinePhasesList[0].startDate + 86400000)) {
+                            } else if (
+                                this.nowTime >
+                                this.detail.offlinePhasesList[0].startDate +
+                                    86400000
+                            ) {
                                 this.$message('评比阶段已开始')
                             } else {
-                                const isApply = res.data.appendInfo.isApply ? res.data.appendInfo.isApply : '0'
+                                const isApply = res.data.appendInfo.isApply
+                                    ? res.data.appendInfo.isApply
+                                    : '0'
                                 this.$message({
                                     message: {
                                         '-3': '报名未开始',
-                                        3: '报名已结束',
+                                        3: '报名已结束'
                                     }[isApply]
                                 })
                             }
                         } else {
-                            this.$message({ type: 'error', message: res.data.msg })
+                            this.$message({
+                                type: 'error',
+                                message: res.data.msg
+                            })
                         }
                     })
                 }
@@ -285,13 +394,23 @@ export default {
         },
         // 报名参赛
         enrolWindow() {
-            if ((this.detail.actorType === '1' && this.identity === 'student') || (this.detail.actorType === '2' && this.identity === 'teacher')) {
-                requestIsApply({ matchId: this.$route.query.id }).then((res) => {
+            if (
+                (this.detail.actorType === '1' &&
+                    this.identity === 'student') ||
+                (this.detail.actorType === '2' && this.identity === 'teacher')
+            ) {
+                requestIsApply({ matchId: this.$route.query.id }).then(res => {
                     // isApply: -3.报名未开始,-2.报名且未通过审核,-1.未报名,1.已报名 2.报名审核通过,3.报名已结束
                     // isProhibit: 判断是否在同一区域
-                    if (res.data.code === 200 && [-1, -2].includes(res.data.appendInfo.isApply) && res.data.appendInfo.isProhibit) {
+                    if (
+                        res.data.code === 200 &&
+                        [-1, -2].includes(res.data.appendInfo.isApply) &&
+                        res.data.appendInfo.isProhibit
+                    ) {
                         this.enrolPopover = true
-                        requestMatchActor({ matchId: this.$route.query.id }).then((response) => {
+                        requestMatchActor({
+                            matchId: this.$route.query.id
+                        }).then(response => {
                             if (response.data.code === 200) {
                                 const entity = response.data.entity
                                 this.matchMessage = entity
@@ -301,23 +420,36 @@ export default {
                                 this.form.areaId = entity.areaId
                                 this.form.schoolId = entity.schoolId
                                 if (entity.actorWay.split(',').length > 1) {
-                                    this.actorWayOptions = [{ name: '个人', id: 1 }, { name: '团体', id: 2 }]
-                                } else if (entity.actorWay.split(',')[0] === '1') {
-                                    this.actorWayOptions = [{ name: '个人', id: 1 }]
-                                } else if (entity.actorWay.split(',')[0] === '2') {
-                                    this.actorWayOptions = [{ name: '团体', id: 2 }]
+                                    this.actorWayOptions = [
+                                        { name: '个人', id: 1 },
+                                        { name: '团体', id: 2 }
+                                    ]
+                                } else if (
+                                    entity.actorWay.split(',')[0] === '1'
+                                ) {
+                                    this.actorWayOptions = [
+                                        { name: '个人', id: 1 }
+                                    ]
+                                } else if (
+                                    entity.actorWay.split(',')[0] === '2'
+                                ) {
+                                    this.actorWayOptions = [
+                                        { name: '团体', id: 2 }
+                                    ]
                                 }
                             }
                         })
                     } else {
                         if (![-1, -2].includes(res.data.appendInfo.isApply)) {
-                            const isApply = res.data.appendInfo.isApply ? res.data.appendInfo.isApply : '0'
+                            const isApply = res.data.appendInfo.isApply
+                                ? res.data.appendInfo.isApply
+                                : '0'
                             this.$message({
                                 message: {
                                     '-3': '报名未开始',
                                     2: '您已报名',
                                     1: '您的报名正在审核中',
-                                    3: '报名已结束',
+                                    3: '报名已结束'
                                 }[isApply]
                             })
                         }
@@ -329,7 +461,11 @@ export default {
                     }
                 })
             } else {
-                this.showMessage('info', '温馨提示：您的身份不符合参赛要求，去欣赏参赛作品吧', 2000)
+                this.showMessage(
+                    'info',
+                    '温馨提示：您的身份不符合参赛要求，去欣赏参赛作品吧',
+                    2000
+                )
             }
         },
         ...mapActions({
@@ -339,7 +475,7 @@ export default {
         getDetail() {
             const type = Number(this.$route.query.type)
             const handle = type === 1 ? requestDetail : requestOfflineDetail
-            handle({ id: this.$route.query.id }).then((res) => {
+            handle({ id: this.$route.query.id }).then(res => {
                 if (res.data.code === 200) {
                     this.detail = res.data.entity
                     this.save(res.data.entity)
@@ -353,7 +489,8 @@ export default {
                 this.addRoute(path, true)
             }
         },
-        addRoute(path, ifRefresh = false, projectId = '') { // ifRefresh： 判断是不是刷新
+        addRoute(path, ifRefresh = false, projectId = '') {
+            // ifRefresh： 判断是不是刷新
             const routeName = {
                 myPlay: '我的参赛',
                 review: '我的评审',
@@ -362,15 +499,24 @@ export default {
             }
             // console.log('sessionStorage456', path)
             // console.log('sessionStorage789', this.$route.path)
-            const _query = { id: this.$route.query.id, type: this.$route.query.type }
+            const _query = {
+                id: this.$route.query.id,
+                type: this.$route.query.type
+            }
             if (projectId) {
                 _query.projectId = projectId
             }
             sessionStorage.setItem('contest_router', path)
             // this.$set(this.navList, 5, { path: `/contest/${path}`, name: routeName[path] })
-            this.$set(this.navList, 3, { path: `/contest/${path}`, name: routeName[path] })
+            this.$set(this.navList, 3, {
+                path: `/contest/${path}`,
+                name: routeName[path]
+            })
             if (ifRefresh) {
-                this.$router.push({ path: this.$route.path, query: this.$route.query })
+                this.$router.push({
+                    path: this.$route.path,
+                    query: this.$route.query
+                })
             } else {
                 this.$router.push({ path: `/contest/${path}`, query: _query })
             }
@@ -383,7 +529,7 @@ export default {
     },
     watch: {
         '$route.path': {
-            handler: function (val) {
+            handler: function(val) {
                 const path = val.split('/')[2]
                 switch (path) {
                     case 'detail':
@@ -401,7 +547,7 @@ export default {
             }
         },
         detail: {
-            handler: function (val) {
+            handler: function(val) {
                 if (Object.keys(val).length) {
                     this.init()
                 }
@@ -409,20 +555,25 @@ export default {
         }
     },
     filters: {
-        handleWorksDesc(txt = '', len = 50, sep = '...') { // 处理作品描述字段，字段包括HTML标签内容
+        handleWorksDesc(txt = '', len = 50, sep = '...') {
+            // 处理作品描述字段，字段包括HTML标签内容
             const reg = new RegExp('(.{' + len + '}).+')
-            return txt.replace(/<[^>]+>|\n|&nbsp;/gi, '').replace(reg, '$1' + sep) || ''
+            return (
+                txt
+                    .replace(/<[^>]+>|\n|&nbsp;/gi, '')
+                    .replace(reg, '$1' + sep) || ''
+            )
         }
-    },
+    }
 }
 </script>
 
 <style lang="scss">
-    .wrap {
-        .el-dialog {
-            width: 500px;
-        }
+.wrap {
+    .el-dialog {
+        width: 500px;
     }
+}
 </style>
 
 <style lang='scss' scoped>
@@ -450,7 +601,7 @@ export default {
         background-color: #23b8ff;
         color: #fff;
         &:hover {
-            background-color: nth($default-color, 2)
+            background-color: nth($default-color, 2);
         }
         &:last-child {
             margin-right: 0px;

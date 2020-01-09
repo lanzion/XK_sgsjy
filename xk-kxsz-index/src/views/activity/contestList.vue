@@ -51,8 +51,8 @@ export default {
     data() {
         return {
             breadcrumb: [
-                { path: '/activity', name: '活动街区' },
-                { path: '', name: '活动竞赛列表' }
+                { path: '/activity', name: '评审活动' },
+                { path: '', name: '评审活动列表' }
             ],
             // 地址
             region: {

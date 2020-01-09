@@ -3,12 +3,19 @@
         <h4 class="head-tit">赛程详情</h4>
         <!-- 赛程详情列表 -->
         <div class="detailList">
-            <el-table class="data-table back-stage-table" border :data="phaseList" style="width: 100%" ref="multipleTable" @row-click="handleSelectionChange">
+            <el-table
+                class="data-table back-stage-table"
+                border
+                :data="phaseList"
+                style="width: 100%"
+                ref="multipleTable"
+                @row-click="handleSelectionChange"
+            >
                 <el-table-column prop="name" label="赛程" show-overflow-tooltip></el-table-column>
                 <el-table-column prop="startDate" label="评比时间" show-overflow-tooltip>
-                    <template slot-scope="scope">
-                        {{scope.row.startDate | dateFormat('yyyy.MM.dd')}} -- {{scope.row.endDate | dateFormat('yyyy.MM.dd')}}
-                    </template>
+                    <template
+                        slot-scope="scope"
+                    >{{scope.row.startDate | dateFormat('yyyy.MM.dd')}} -- {{scope.row.endDate | dateFormat('yyyy.MM.dd')}}</template>
                 </el-table-column>
                 <el-table-column prop="status" label="评比状态">
                     <template slot-scope="scope">
@@ -17,12 +24,31 @@
                 </el-table-column>
                 <el-table-column prop="auditStatus" label="操作" width="300">
                     <template slot-scope="scope">
-                        <button type="button" v-if="userId!==detail.createId || scope.row.status==='3'" class="btn span" @click.stop="">结束评比</button>
-                        <button type="button" v-else class="btn" @click="handle='endAppraisal';endOfAppraisal(scope.row)">结束评比</button> |
+                        <button
+                            type="button"
+                            v-if="userId!==detail.createId || scope.row.status==='3'"
+                            class="btn span"
+                            @click.stop
+                        >结束评比</button>
+                        <button
+                            type="button"
+                            v-else
+                            class="btn"
+                            @click="handle='endAppraisal';endOfAppraisal(scope.row)"
+                        >结束评比</button> |
                         <!-- <button type="button" v-if="identity===scope.row.identity && scope.row.status!=='3'" class="btn" @click="handle='allocation';allocationPopop = true">评审分配</button> -->
-                        <button type="button" v-if="identity===scope.row.identity && scope.row.status!=='3'" class="btn" @click.stop="selectEvalDistribute(scope.row)">评审分配</button>
+                        <button
+                            type="button"
+                            v-if="identity===scope.row.identity && scope.row.status!=='3'"
+                            class="btn"
+                            @click.stop="selectEvalDistribute(scope.row)"
+                        >评审分配</button>
                         <button type="button" v-else class="btn span" @click.stop="handle=''">评审分配</button> |
-                        <button type="button" class="btn" @click="openRatePop(scope.row.identity)">评审进度</button> |
+                        <button
+                            type="button"
+                            class="btn"
+                            @click="openRatePop(scope.row.identity)"
+                        >评审进度</button> |
                         <button type="button" class="btn" @click="resultsPopop.show = true">评审结果</button>
                     </template>
                 </el-table-column>
@@ -32,36 +58,87 @@
                 <div class="content-box">
                     <div class="mb15">
                         <span style="margin-right: 8px;">专家：</span>
-                        <el-tag v-for="(i, k) in ExpertList" @click.native="selectExpert(i, k)" :class="{ active: activeNum === k }" :key="k">{{ i.userName }}</el-tag>
+                        <el-tag
+                            v-for="(i, k) in ExpertList"
+                            @click.native="selectExpert(i, k)"
+                            :class="{ active: activeNum === k }"
+                            :key="k"
+                        >{{ i.userName }}</el-tag>
                     </div>
                     <el-form :inline="true" :model="manualForm" ref="manualForm">
-                        <el-form-item label="分类：" prop='projectId'>
-                            <el-select v-model="manualForm.projectId" placeholder="请选择分类" filterable clearable>
-                                <el-option v-for="(item, k) in detail.projectRelationList" :key="k" :label="item.projectName" :value="item.projectId"></el-option>
+                        <el-form-item label="分类：" prop="projectId">
+                            <el-select
+                                v-model="manualForm.projectId"
+                                placeholder="请选择分类"
+                                filterable
+                                clearable
+                            >
+                                <el-option
+                                    v-for="(item, k) in detail.projectRelationList"
+                                    :key="k"
+                                    :label="item.projectName"
+                                    :value="item.projectId"
+                                ></el-option>
                             </el-select>
                         </el-form-item>
                         <!-- <el-form-item label="分组：" prop='actorGroup'>
                             <el-select v-model="manualForm.actorGroup" placeholder="请选择分组" filterable clearable>
                                 <el-option v-for="item in periodKeyDicList" :key="item.id" :label="item.name" :value="item.id"></el-option>
                             </el-select>
-                        </el-form-item> -->
-                        <el-form-item label="形式：" prop='actorWay'>
-                            <el-select v-model="manualForm.actorWay" placeholder="请选择形式" filterable clearable>
-                                <el-option v-for="item in actorWayDicList" :key="item.id" :label="item.name" :value="item.id"></el-option>
+                        </el-form-item>-->
+                        <el-form-item label="形式：" prop="actorWay">
+                            <el-select
+                                v-model="manualForm.actorWay"
+                                placeholder="请选择形式"
+                                filterable
+                                clearable
+                            >
+                                <el-option
+                                    v-for="item in actorWayDicList"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item.id"
+                                ></el-option>
                             </el-select>
                         </el-form-item>
                         <el-form-item label="区域：" v-if="!ifSchool">
-                            <xk-region-select @region="changeRegion" ref="region" :isAdmin="true" :clearable="true"></xk-region-select>
+                            <xk-region-select
+                                @region="changeRegion"
+                                ref="region"
+                                :isAdmin="true"
+                                :clearable="true"
+                            ></xk-region-select>
                         </el-form-item>
-                        <el-form-item label="学校：" v-if="!ifSchool" prop='schoolId'>
-                            <el-select v-model="manualForm.schoolId" placeholder="请选择学校" filterable clearable>
-                                <el-option v-for="item in schoolOptions" :key="item.id" :label="item.schoolName" :value="item.id"></el-option>
+                        <el-form-item label="学校：" v-if="!ifSchool" prop="schoolId">
+                            <el-select
+                                v-model="manualForm.schoolId"
+                                placeholder="请选择学校"
+                                filterable
+                                clearable
+                            >
+                                <el-option
+                                    v-for="item in schoolOptions"
+                                    :key="item.id"
+                                    :label="item.schoolName"
+                                    :value="item.id"
+                                ></el-option>
                             </el-select>
                         </el-form-item>
                     </el-form>
-                    <p class="manual-total">还有 <span class="num">{{ manualPageParam.totalNum }}</span> 个待分配作品</p>
+                    <p class="manual-total">
+                        还有
+                        <span class="num">{{ manualPageParam.totalNum }}</span> 个待分配作品
+                    </p>
                     <!-- 手动分配列表 -->
-                    <el-table class="data-table back-stage-table" border :data="manualList" style="width: 100%" ref="multipleTable" @selection-change="changeSelection" height="200">
+                    <el-table
+                        class="data-table back-stage-table"
+                        border
+                        :data="manualList"
+                        style="width: 100%"
+                        ref="multipleTable"
+                        @selection-change="changeSelection"
+                        height="200"
+                    >
                         <el-table-column type="selection" width="40"></el-table-column>
                         <el-table-column prop="worksName" label="作品名称" show-overflow-tooltip></el-table-column>
                         <el-table-column prop="userName" label="作者" show-overflow-tooltip></el-table-column>
@@ -75,7 +152,7 @@
                             <template slot-scope="scope">
                                 <span>{{ scope.row.actorGroup | translate(periodKeyDicList, { key: 'id' }) }}</span>
                             </template>
-                        </el-table-column> -->
+                        </el-table-column>-->
                         <el-table-column prop="actorWay" label="形式" show-overflow-tooltip>
                             <template slot-scope="scope">
                                 <span>{{ scope.row.actorWay | translate(actorWayDicList) }}</span>
@@ -92,21 +169,36 @@
                             </template>
                         </el-table-column>
                     </el-table>
-                    <div class="moreData" @click="manualPageParam.pageNum++;getManualList('more')" v-if="manualPageParam.totalNum > manualPageParam.pageNum * manualPageParam.pageSize">
-                        <i class="icon-status-open"> 更多数据 </i>
+                    <div
+                        class="moreData"
+                        @click="manualPageParam.pageNum++;getManualList('more')"
+                        v-if="manualPageParam.totalNum > manualPageParam.pageNum * manualPageParam.pageSize"
+                    >
+                        <i class="icon-status-open">更多数据</i>
                     </div>
                     <div class="btn_groups clearfix">
-                        <button type="button" class="group_button cancel fr ml15" @click="closeManualForm">取消</button>
-                        <button type="button" class="group_button sure fr" @click="requestManual">确定</button>
+                        <button
+                            type="button"
+                            class="group_button cancel fr ml15"
+                            @click="closeManualForm"
+                        >取消</button>
+                        <button
+                            type="button"
+                            class="group_button sure fr"
+                            @click="requestManual"
+                        >{{requestManualBtnTxt}}</button>
                     </div>
                 </div>
             </el-dialog>
             <!-- 分配方式 -->
-            <el-dialog title="选择分配方式" :visible.sync="allocationPopop" size="tiny" class="allocation">
+            <el-dialog
+                title="选择分配方式"
+                :visible.sync="allocationPopop"
+                size="tiny"
+                class="allocation"
+            >
                 <el-row>
-                    <el-col :span="6" style="text-align:center;">
-                        分配方式:
-                    </el-col>
+                    <el-col :span="6" style="text-align:center;">分配方式:</el-col>
                     <el-col :span="16">
                         <el-radio-group v-model="mode" style="width:100%;">
                             <el-radio :label="1">自动分配</el-radio>
@@ -114,19 +206,43 @@
                         </el-radio-group>
                     </el-col>
                 </el-row>
-                <el-form :model="autoForm" :rules="autoRules" ref="autoForm" label-width="150px" v-if="mode === 1" class="autoForm">
+                <el-form
+                    :model="autoForm"
+                    :rules="autoRules"
+                    ref="autoForm"
+                    label-width="150px"
+                    v-if="mode === 1"
+                    class="autoForm"
+                >
                     <el-form-item label="单个作品评审次数:" prop="worksReviewNum">
                         <el-input v-model.num="autoForm.worksReviewNum"></el-input>
                     </el-form-item>
                 </el-form>
                 <div class="pt20 clearfix">
-                    <button type="button" class="group_button cancel ml15 fr" @click="closeAllocation">关闭</button>
-                    <button type="button" class="group_button sure fr" @click="selectedAllocation">确定</button>
+                    <button
+                        type="button"
+                        class="group_button cancel ml15 fr"
+                        @click="closeAllocation"
+                    >关闭</button>
+                    <button
+                        type="button"
+                        class="group_button sure fr"
+                        @click="selectedAllocation"
+                    >确定</button>
                 </div>
             </el-dialog>
             <!-- 评审进度 -->
-            <area-rate :phasePopop.sync="phasePopop" :currentRow="currentRow" @callback="popCallback"></area-rate>
-            <audit-rate :rateVisible.sync="rateVisible" :currentRow="currentRow" :orgId="orgId" @callback="popCallback"></audit-rate>
+            <area-rate
+                :phasePopop.sync="phasePopop"
+                :currentRow="currentRow"
+                @callback="popCallback"
+            ></area-rate>
+            <audit-rate
+                :rateVisible.sync="rateVisible"
+                :currentRow="currentRow"
+                :orgId="orgId"
+                @callback="popCallback"
+            ></audit-rate>
             <!-- 评审结果 -->
             <audit-result :resultsPopop.sync="resultsPopop" :currentRow="currentRow"></audit-result>
         </div>
@@ -134,8 +250,16 @@
 </template>
 
 <script>
-import pagination from '@/components/common/pagination.vue'  // 分页组件
-import { requestExpertListByPhase, requestPhaseList, requestAutoAllocation, requestWorksListByPhase, requestManualAllocation, requestEndEvaluation, requestSureSumit } from '@/service/manage.js'
+import pagination from '@/components/common/pagination.vue' // 分页组件
+import {
+    requestExpertListByPhase,
+    requestPhaseList,
+    requestAutoAllocation,
+    requestWorksListByPhase,
+    requestManualAllocation,
+    requestEndEvaluation,
+    requestSureSumit
+} from '@/service/manage.js'
 import { mapState } from 'vuex'
 // import region from '@/components/common/select/region_select.vue' // 省市区下拉
 import { requestSchoolList } from '@/service/common.js'
@@ -156,7 +280,10 @@ export default {
     data() {
         return {
             handle: null,
-            identity: this.$ls.get('loginInfo').userInfo.identity.indexOf('_')>0?this.$ls.get('loginInfo').userInfo.identity.split('_')[0]:this.$ls.get('loginInfo').userInfo.identity,
+            identity:
+                this.$ls.get('loginInfo').userInfo.identity.indexOf('_') > 0
+                    ? this.$ls.get('loginInfo').userInfo.identity.split('_')[0]
+                    : this.$ls.get('loginInfo').userInfo.identity,
             userId: this.$ls.get('loginUId'),
             // 评审结果弹框开关
             resultsPopop: {
@@ -184,7 +311,11 @@ export default {
                 worksReviewNum: ''
             },
             autoRules: {
-                worksReviewNum: { required: true, message: '请选择活动资源', trigger: 'change' }
+                worksReviewNum: {
+                    required: true,
+                    message: '请选择活动资源',
+                    trigger: 'change'
+                }
             },
             // 赛程详情列表
             phaseList: [],
@@ -198,7 +329,7 @@ export default {
                 expertId: '',
                 actorGroup: '',
                 actorWay: '',
-                schoolId: '',
+                schoolId: ''
             },
             // 当前行
             currentRow: {},
@@ -206,7 +337,7 @@ export default {
             manualList: [],
             manualPageParam: {
                 pageNum: 1,
-                pageSize: 20,
+                pageSize: 50,
                 totalNum: 0
             },
             projectIdArr: [],
@@ -218,13 +349,15 @@ export default {
             region: {
                 provinceId: null,
                 cityId: null,
-                areaId: null,
+                areaId: null
             },
             // 手动分配列表选中项
             checkedItems: [],
             // 选中专家
             activeNum: 0,
             orgId: '',
+            requestManualAllocationLodin: true,
+            requestManualBtnTxt: '确定'
         }
     },
     methods: {
@@ -234,34 +367,42 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning',
                 customClass: '__custom-msg-box'
-            }).then(() => {
-                requestEndEvaluation({ id: item.id }).then((res) => {
-                    if (res.data.code === 200) {
-                        this.$message({
-                            message: res.data.msg
-                        })
-                    } else if (res.data.code === 209) {
-                        this.$confirm(res.data.msg, '提示', { confirmButtonText: '确定', cancelButtonText: '取消', type: 'warning' }).then(() => {
-                            requestSureSumit({}).then((response) => {
-                                if (res.data.code === 200) {
-                                    this.$message({
-                                        type: 'success',
-                                        message: response.data.msg
-                                    })
-                                } else {
-                                    this.$message({
-                                        message: response.data.msg
-                                    })
-                                }
+            })
+                .then(() => {
+                    requestEndEvaluation({ id: item.id }).then(res => {
+                        if (res.data.code === 200) {
+                            this.$message({
+                                message: res.data.msg
                             })
-                        }).catch(() => {})
-                    } else {
-                        this.$message({
-                            message: res.data.msg
-                        })
-                    }
+                        } else if (res.data.code === 209) {
+                            this.$confirm(res.data.msg, '提示', {
+                                confirmButtonText: '确定',
+                                cancelButtonText: '取消',
+                                type: 'warning'
+                            })
+                                .then(() => {
+                                    requestSureSumit({}).then(response => {
+                                        if (res.data.code === 200) {
+                                            this.$message({
+                                                type: 'success',
+                                                message: response.data.msg
+                                            })
+                                        } else {
+                                            this.$message({
+                                                message: response.data.msg
+                                            })
+                                        }
+                                    })
+                                })
+                                .catch(() => {})
+                        } else {
+                            this.$message({
+                                message: res.data.msg
+                            })
+                        }
+                    })
                 })
-            }).catch(() => {})
+                .catch(() => {})
         },
         // 关闭手动列表
         closeManualForm() {
@@ -285,25 +426,40 @@ export default {
             const param = {
                 id: this.currentRow.id
             }
-            param.list = [{
-                expertId: this.manualParam.expertId
-            }]
+            param.list = [
+                {
+                    expertId: this.manualParam.expertId
+                }
+            ]
             param.list[0].worksId = this.checkedItems.map(i => i.id)
-            requestManualAllocation(param).then((res) => {
-                if (res.data.code === 200) {
-                    this.getManualList()
-                    this.$message({
-                        type: 'success',
-                        message: '分配成功'
-                    })
-                } else {
-                    this.$message.error(res.data.msg)
+            if (!this.requestManualAllocationLodin) return
+            this.requestManualAllocationLodin = false
+            this.requestManualBtnTxt = '分配中'
+            requestManualAllocation(param).then(res => {
+                try {
+                    if (res.data.code === 200) {
+                        this.getManualList()
+                        this.$message({
+                            type: 'success',
+                            message: '分配成功'
+                        })
+                    } else {
+                        this.$message.error(res.data.msg)
+                    }
+                } catch (err) {
+                    console.log(err)
+                } finally {
+                    this.requestManualAllocationLodin = true
+                    this.requestManualBtnTxt = '确定'
                 }
             })
         },
         // 手动分配列表
         getManualList(str) {
-            requestWorksListByPhase(Object.assign({}, this.region, this.manualParam), this.manualPageParam).then((res) => {
+            requestWorksListByPhase(
+                Object.assign({}, this.region, this.manualParam),
+                this.manualPageParam
+            ).then(res => {
                 if (res.data.code === 200) {
                     const _data = res.data.entity || {}
                     if (str === 'more') {
@@ -312,7 +468,11 @@ export default {
                         this.manualPageParam.pageNum = 1
                         this.manualList = _data.resultData || []
                     }
-                    this.$set(this.manualPageParam, 'totalNum', _data.totalNum || 0)
+                    this.$set(
+                        this.manualPageParam,
+                        'totalNum',
+                        _data.totalNum || 0
+                    )
                 } else {
                     this.$message.error(res.data.msg)
                 }
@@ -322,7 +482,7 @@ export default {
         selectEvalDistribute(selection) {
             this.handle = 'allocation'
             this.handleSelectionChange(selection)
-            this.getExpertList().then((result) => {
+            this.getExpertList().then(result => {
                 if (result) {
                     this.manualPopop = true
                 }
@@ -330,12 +490,16 @@ export default {
         },
         // 获取专家列表
         getExpertList() {
-            return requestExpertListByPhase({ matchId: this.$route.query.id, phaseId: this.currentRow.id }, { pageNum: 1, pageSize: 999 }).then((res) => {
+            return requestExpertListByPhase(
+                { matchId: this.$route.query.id, phaseId: this.currentRow.id },
+                { pageNum: 1, pageSize: 999 }
+            ).then(res => {
                 let result = false
                 if (res.data.code === 200) {
                     const _data = res.data.appendInfo || {}
                     this.ExpertList = _data.list || []
-                    this.manualForm.expertId = this.ExpertList[0] && this.ExpertList[0].id
+                    this.manualForm.expertId =
+                        this.ExpertList[0] && this.ExpertList[0].id
                     result = true
                 } else {
                     this.$message.error(res.data.msg)
@@ -349,7 +513,7 @@ export default {
                 this.autoForm.id = this.currentRow.id
                 console.log(this.currentRow)
                 console.log(this.autoForm)
-                requestAutoAllocation(this.autoForm).then((res) => {
+                requestAutoAllocation(this.autoForm).then(res => {
                     if (res.data.code === 200) {
                         this.$message({
                             type: 'success',
@@ -377,7 +541,7 @@ export default {
         },
         // 赛程详情列表
         getPhaseList() {
-            requestPhaseList({ matchId: this.$route.query.id }).then((res) => {
+            requestPhaseList({ matchId: this.$route.query.id }).then(res => {
                 if (res.data.code === 200) {
                     this.phaseList = res.data.appendInfo.list
                 } else {
@@ -405,7 +569,7 @@ export default {
         changeManualPage(val) {
             this.$set(this.manualPageParam, 'pageNum', val)
         },
-       // 地区改变
+        // 地区改变
         changeRegion(items) {
             console.log(items)
             const _region = {}
@@ -421,10 +585,11 @@ export default {
         // 请求学校列表数据
         getSchoolData() {
             if (Object.values(this.region).filter(x => x).length) {
-            // if ((this.region.provinceId != null) || (this.region.cityId != null) || (this.region.areaId != null)) {
-                requestSchoolList(this.region).then((response) => {
+                // if ((this.region.provinceId != null) || (this.region.cityId != null) || (this.region.areaId != null)) {
+                requestSchoolList(this.region).then(response => {
                     if (response.data.code === 200) {
-                        this.schoolOptions = response.data.appendInfo.comboxList || []
+                        this.schoolOptions =
+                            response.data.appendInfo.comboxList || []
                     } else {
                         this.$message.error(response.data.msg)
                     }
@@ -456,22 +621,26 @@ export default {
     computed: {
         ...mapState({
             detail: state => state.matchDetail.detail,
-            periodKeyDicList: state => state.dictionaryCommon.periodKeyDicList.dicList,
-            actorWayDicList: state => state.dictionaryCommon.actorWayDicList.dicList,
+            periodKeyDicList: state =>
+                state.dictionaryCommon.periodKeyDicList.dicList,
+            actorWayDicList: state =>
+                state.dictionaryCommon.actorWayDicList.dicList
         }),
         manualParam() {
-            return Object.assign({}, this.manualForm, { id: this.currentRow.id })
+            return Object.assign({}, this.manualForm, {
+                id: this.currentRow.id
+            })
         }
     },
     watch: {
         manualParam: {
-            handler: function (val, oldVal) {
+            handler: function(val, oldVal) {
                 if (val.id === oldVal.id && this.handle === 'allocation') {
                     this.getManualList()
                 }
             },
             deep: true
-        },
+        }
         // manualPopop: {
         //     handler: function (val) {
         //         if (val) {
@@ -497,7 +666,9 @@ export default {
             }
         }
     }
-    .audit_rate,.audit_result,.handle {
+    .audit_rate,
+    .audit_result,
+    .handle {
         .el-dialog {
             width: 750px;
         }

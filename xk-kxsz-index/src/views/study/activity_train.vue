@@ -57,8 +57,8 @@ export default {
         return {
             id: this.$route.query.id,
             breadcrumb: [
-                { path: '/education', name: '活动培训' },
-                { path: '', name: '培训列表' }
+                { path: '/education', name: '竞赛与培训' },
+                { path: '', name: '竞赛与培训列表' }
             ],
             studySectionId: '',
             subject: '',

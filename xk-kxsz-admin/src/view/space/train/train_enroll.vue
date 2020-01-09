@@ -44,8 +44,8 @@
       <el-table-column prop="name" label="报名人" show-overflow-tooltip></el-table-column>
       <el-table-column prop="sex" label="性别" show-overflow-tooltip>
         <template scope="scope">
-          <span v-if="scope.row.sex==8">男</span>
-          <span v-if="scope.row.sex==7">女</span>
+          <span v-if="scope.row.sex==7">男</span>
+          <span v-if="scope.row.sex==8">女</span>
         </template>
       </el-table-column>
       <el-table-column prop="certiNum" label="身份证" show-overflow-tooltip></el-table-column>

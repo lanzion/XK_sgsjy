@@ -4,7 +4,7 @@
         <div class="container">
             <section class="list-group list-group__event">
                 <header class="list-group__header clearfix">
-                    <h3 class="title">活动竞赛</h3>
+                    <h3 class="title">评审活动</h3>
                     <a class="more" @click="redirect(pages.list.contest, { type: 6 })">更多>></a>
                 </header>
                 <el-row class="list-group__main" :gutter="20" v-if="events.length">

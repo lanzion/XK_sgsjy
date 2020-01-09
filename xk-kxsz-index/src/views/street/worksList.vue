@@ -76,7 +76,7 @@ export default {
     data() {
         return {
             breadcrumb: [
-                { path: '/street', name: '活动街区' },
+                { path: '/street', name: '评审活动' },
                 { path: '', name: '作品列表' }
             ],
             tabs: [

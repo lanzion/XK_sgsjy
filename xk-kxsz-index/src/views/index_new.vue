@@ -4,7 +4,7 @@
         <div class="container">
             <section class="list-group list-group__contest">
                 <header class="list-group__header clearfix">
-                    <h3 class="title fl">活动竞赛</h3>
+                    <h3 class="title fl">评审活动</h3>
                     <a class="more fr" @click="redirect(pages.list.contest, { type: 6 })">更多>></a>
                 </header>
                 <el-row class="list-group__main" :gutter="20" v-if="activity.length">
@@ -23,12 +23,12 @@
                         </div>
                     </el-col>
                 </el-row>
-                <div class="bgc_w no-data" v-else>暂无活动竞赛</div>
+                <div class="bgc_w no-data" v-else>暂无评审活动</div>
             </section>
 
             <!-- 资源 -->
             <section class="resource-train clearfix">
-                <div class="section-left fl bgw">
+                <div class="section-left fr bgw">
                     <header class="section__header clearfix">
                         <h3 class="title fl">热门资源</h3>
                         <a @click="redirect(pages.list.resource, { type: 6 })" tag="a" class="more fr">更多>></a>
@@ -47,9 +47,9 @@
                     </ul>
                     <div class="bgw no-data" v-else>暂无资源</div>
                 </div>
-                <div class="section-right fr bgw">
+                <div class="section-right fl bgw">
                     <header class="section__header clearfix">
-                        <h3 class="title fl">最新培训</h3>
+                        <h3 class="title fl">最新竞赛与培训</h3>
                         <a @click="redirect(pages.list.actiTrain, { type: 6 })" class="more fr">更多>></a>
                     </header>
                     <ul class="train-list" v-if="train.length">
@@ -64,7 +64,7 @@
                             </div>
                         </li>
                     </ul>
-                    <div class="bgw no-data" v-else>暂无培训</div>
+                    <div class="bgw no-data" v-else>暂无竞赛与培训</div>
                 </div>
             </section>
 
@@ -315,20 +315,20 @@ $box-border: 1px solid #f5f5f5;
     }
 
     .section-left {
-        width: 738px;
+        width: 440px;
         height: 578px;
         border-radius: 10px;
         .res-list {
             padding: 10px;
             .res-list-item {
-                width: 50%;
+                // width: 50%;
                 box-sizing: border-box;
                 font-size: 16px;
                 line-height: 1.5;
                 padding: 10px;
                 padding-right: 0;
                 .res-tit {
-                    width: 279px;
+                    width: 338px;
                     i {
                         vertical-align: middle;
                         color: nth($default-color, 1);
@@ -351,7 +351,7 @@ $box-border: 1px solid #f5f5f5;
     }
 
     .section-right {
-        width: 440px;
+        width: 738px;
         height: 578px;
         border-radius: 10px;
         .date-box {
@@ -378,7 +378,7 @@ $box-border: 1px solid #f5f5f5;
             .train-list-item {
                 padding: 8px 18px;
                 .info-box {
-                    width: 312px;
+                    width: 600px;
                     box-sizing: border-box;
                     padding-left: 12px;
                     .info-tit {

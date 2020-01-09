@@ -8,10 +8,10 @@
               <el-input v-model="form.name" placeholder="暂无姓名"></el-input>
             </el-col>
           </el-form-item>
-          <el-form-item label="名别：">
+          <el-form-item label="性别：">
             <el-col :span="24">
-              <el-radio v-model="form.sex" label="8">男</el-radio>
-              <el-radio v-model="form.sex" label="7">女</el-radio>
+              <el-radio v-model="form.sex" label="7">男</el-radio>
+              <el-radio v-model="form.sex" label="8">女</el-radio>
             </el-col>
           </el-form-item>
           <el-form-item label="身份证：">

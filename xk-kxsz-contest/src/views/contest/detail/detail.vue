@@ -2,7 +2,15 @@
     <section id="contestDetail" class="clearfix">
         <div class="content_l bgw fl p15">
             <h1 class="content_l_title">{{ detail.title }}</h1>
-            <el-steps v-if="$route.query.type == '1'" :space="120" :active="stepActive" finish-status="success" :center="true" class="steps" :align-center="true">
+            <el-steps
+                v-if="$route.query.type == '1'"
+                :space="120"
+                :active="stepActive"
+                finish-status="success"
+                :center="true"
+                class="steps"
+                :align-center="true"
+            >
                 <el-step :title="item.name" v-for="(item, k) in matchNode" :key="k"></el-step>
             </el-steps>
             <!-- <component :is="entryButton[$route.query.type].component" v-bind="{ addRoute, enrollHandler:entryButton[$route.query.type].handler  }" class="fr"></component> -->
@@ -16,47 +24,90 @@
                 <!-- <li v-for="(i, k)  in attList" class="attList_li"> <a :href="downloadUrl(i.resourceId, i.name)" :download="i.name" class="btn" title="下载">{{ i.name }} </a></li> -->
                 <li v-for="(i, k)  in attList" class="attList_li" :key="k">
                     <!-- <a :href="downloadUrl(i.resourceId, i.name)" :download="i.name" class="btn" title="下载">{{ i.name }} </a> -->
-                    <a href="javascript:;" @click="downloadUrl(i.resourceId, i.name )" class="btn" title="下载">{{ i.name }} </a>
+                    <a
+                        href="javascript:;"
+                        @click="downloadUrl(i.resourceId, i.name )"
+                        class="btn"
+                        title="下载"
+                    >{{ i.name }}</a>
                 </li>
             </ul>
         </div>
         <aside class="content_r fr">
             <div class="dynamic bgc_w">
-                <h3 class="title p15">竞赛动态 <router-link :to="{path: 'dynamic', query: {id: detail.id, type: $route.query.type}}" class="fr more">更多 &gt;&gt;</router-link></h3>
+                <h3 class="title p15">
+                    竞赛动态
+                    <router-link
+                        :to="{path: 'dynamic', query: {id: detail.id, type: $route.query.type}}"
+                        class="fr more"
+                    >更多 &gt;&gt;</router-link>
+                </h3>
                 <ul class="p15" v-if="dynamicList.length">
-                    <li v-for="(i, k) in dynamicList" class="dynamic_lis ellipsis" :title="i.title" :key="k">
-                        <i :class="`hot-${k + 1}`" class="hot"> {{ k + 1 }} </i>
-                        <router-link class="dynamic_lis_title" :to="{path: '/dynamicDetail', query: { id: $route.query.id, type: $route.query.type, dynamicId: i.id } }">
+                    <li
+                        v-for="(i, k) in dynamicList"
+                        class="dynamic_lis ellipsis"
+                        :title="i.title"
+                        :key="k"
+                    >
+                        <i :class="`hot-${k + 1}`" class="hot">{{ k + 1 }}</i>
+                        <router-link
+                            class="dynamic_lis_title"
+                            :to="{path: '/dynamicDetail', query: { id: $route.query.id, type: $route.query.type, dynamicId: i.id } }"
+                        >
                             {{ i.title }}
                             <!-- <time class="dynamic_lis_date fr">
                                 {{ i.createDate | dateFormat('yyyy-MM-dd') }}
-                            </time> -->
+                            </time>-->
                         </router-link>
                     </li>
                 </ul>
                 <div class="no-data" v-else>暂无数据</div>
             </div>
             <div class="bgc_w mt20" v-if="$route.query.type == '2'">
-                <h3 class="title p15">竞赛统计<router-link :to="{path: 'datail'}"></router-link></h3>
+                <h3 class="title p15">
+                    竞赛统计
+                    <router-link :to="{path: 'datail'}"></router-link>
+                </h3>
                 <div class="p15" v-if="offlineStatis.length">
                     <el-table :data="offlineStatis" border>
-                        <el-table-column label="项目类别" show-overflow-tooltip align='center' prop="projectName"></el-table-column>
-                        <el-table-column label="参赛数量" show-overflow-tooltip align='center' prop="num"></el-table-column>
+                        <el-table-column
+                            label="项目类别"
+                            show-overflow-tooltip
+                            align="center"
+                            prop="projectName"
+                        ></el-table-column>
+                        <el-table-column
+                            label="参赛数量"
+                            show-overflow-tooltip
+                            align="center"
+                            prop="num"
+                        ></el-table-column>
                     </el-table>
                 </div>
                 <div class="no-data" v-else>暂无数据</div>
             </div>
             <div class="bgc_w mt20" v-else>
-                <h3 class="title p15">竞赛统计<router-link :to="{path: 'datail'}"></router-link></h3>
+                <h3 class="title p15">
+                    竞赛统计
+                    <router-link :to="{path: 'datail'}"></router-link>
+                </h3>
                 <div class="p15" v-if="tableData.length">
                     <el-table :data="tableData" border :max-height="250">
-                        <el-table-column label="区域/学校" show-overflow-tooltip align='center'>
-                            <template slot-scope="scope">
-                                {{scope.row.orgName}}
-                            </template>
+                        <el-table-column label="区域/学校" show-overflow-tooltip align="center">
+                            <template slot-scope="scope">{{scope.row.orgName}}</template>
                         </el-table-column>
-                        <el-table-column label="参赛人数" show-overflow-tooltip align='center' prop="counts"></el-table-column>
-                        <el-table-column label="参赛作品数" show-overflow-tooltip align='center' prop="wkCount"></el-table-column>
+                        <el-table-column
+                            label="参赛人数"
+                            show-overflow-tooltip
+                            align="center"
+                            prop="counts"
+                        ></el-table-column>
+                        <el-table-column
+                            label="参赛作品数"
+                            show-overflow-tooltip
+                            align="center"
+                            prop="wkCount"
+                        ></el-table-column>
                     </el-table>
                 </div>
                 <div class="no-data" v-else>暂无数据</div>
@@ -66,12 +117,20 @@
 </template>
 
 <script>
-import { requestSteep, requestOfflineStatis, requestOfflineStep, requestIsApply, requestDetail, requestOfflineDetail } from '@/service/contest_detail.js'
+import {
+    requestSteep,
+    requestOfflineStatis,
+    requestOfflineStep,
+    requestIsApply,
+    requestDetail,
+    requestOfflineDetail
+} from '@/service/contest_detail.js'
 import { requestDynamicList, requestCompeteStatList } from '@/service/manage.js'
 
 export default {
     data() {
-        const baseInfo = this.$ls.get('baseInfo') && this.$ls.get('baseInfo').baseInfo
+        const baseInfo =
+            this.$ls.get('baseInfo') && this.$ls.get('baseInfo').baseInfo
         return {
             // 登录信息
             baseInfo: baseInfo,
@@ -102,7 +161,7 @@ export default {
         // 获取参赛统计数据
         getCompeteStatList() {
             const params = Object.assign({}, { matchId: this.$route.query.id })
-            requestCompeteStatList(params).then((res) => {
+            requestCompeteStatList(params).then(res => {
                 if (res.data.code === 200) {
                     this.tableData = res.data.appendInfo.list
                 }
@@ -111,7 +170,7 @@ export default {
         // 获取线下竞赛统计
         getOfflineStatis() {
             const params = Object.assign({}, { matchId: this.$route.query.id })
-            requestOfflineStatis(params).then((res) => {
+            requestOfflineStatis(params).then(res => {
                 if (res.data.code === 200) {
                     this.offlineStatis = res.data.appendInfo.matchStatistics
                 }
@@ -119,10 +178,17 @@ export default {
         },
         // 动态数据
         getDataList() {
-            requestDynamicList({ matchId: this.$route.query.id, title: '' }, this.dynamicParam).then((res) => {
+            requestDynamicList(
+                { matchId: this.$route.query.id, title: '' },
+                this.dynamicParam
+            ).then(res => {
                 if (res.data.code === 200) {
                     this.dynamicList = res.data.entity.resultData
-                    this.$set(this.dynamicParam, 'totalNum', res.data.entity.totalNum)
+                    this.$set(
+                        this.dynamicParam,
+                        'totalNum',
+                        res.data.entity.totalNum
+                    )
                 }
             })
         },
@@ -132,7 +198,10 @@ export default {
             const detail = this.detail
             const baseInfo = this.$ls.get('baseInfo')
             if (detail[key].length) {
-                this.attList = detail[key].map(i => ({ resourceId: i.resourceId, name: i.name }))
+                this.attList = detail[key].map(i => ({
+                    resourceId: i.resourceId,
+                    name: i.name
+                }))
             }
             if (baseInfo) {
                 this.baseInfo = baseInfo.baseInfo
@@ -142,21 +211,24 @@ export default {
             const type = Number(this.$route.query.type)
             const handle = type === 1 ? requestSteep : requestOfflineStep
             const key = type === 1 ? 'id' : 'matchId'
-            handle({ [key]: this.$route.query.id }).then((res) => {
+            handle({ [key]: this.$route.query.id }).then(res => {
                 if (res.data.code === 200) {
                     // status(1: 未开始, 2:进行中, 3: 已结束)
                     let _data = res.data.appendInfo || {}
                     let enrollStatus = '1'
                     const now = new Date().getTime()
                     // 判断报名时间
-                    if (now > (this.detail.enrollEndDate + 86400000)) {
+                    if (now > this.detail.enrollEndDate + 86400000) {
                         enrollStatus = '3'
-                    } else if (now > (this.detail.enrollStartDate + 86400000)) {
+                    } else if (now > this.detail.enrollStartDate + 86400000) {
                         enrollStatus = '2'
                     }
                     _data = _data.matchList || []
                     _data.unshift({ name: '报名', status: enrollStatus })
-                    this.matchNode = _data.map(x => ({ name: x.name, status: x.status }))
+                    this.matchNode = _data.map(x => ({
+                        name: x.name,
+                        status: x.status
+                    }))
 
                     const _dataTmp = JSON.parse(JSON.stringify(_data)).reverse()
                     let _idx = _dataTmp.findIndex(x => x.status === '2')
@@ -164,7 +236,8 @@ export default {
                         if (_idx === _data.length - 1) {
                             this.stepActive = _data[0].status === '1' ? 1 : 0
                         } else {
-                            this.stepActive = _idx >= 0 ? _data.length - _idx - 1 : 1
+                            this.stepActive =
+                                _idx >= 0 ? _data.length - _idx - 1 : 1
                         }
                     } else {
                         _idx = _dataTmp.findIndex(x => x.status === '3')
@@ -179,7 +252,7 @@ export default {
         getDetail() {
             const type = Number(this.$route.query.type)
             const handle = type === 1 ? requestDetail : requestOfflineDetail
-            handle({ id: this.$route.query.id }).then((res) => {
+            handle({ id: this.$route.query.id }).then(res => {
                 if (res.data.code === 200) {
                     this.detailData = res.data.entity
                 }
@@ -187,24 +260,42 @@ export default {
         },
         routerToPage() {
             if (this.baseInfo) {
-                if ((this.identity === 'student' && this.detail.actorType === '1') || (this.identity === 'teacher' && this.detail.actorType === '2')) {
-                    requestIsApply({ matchId: this.$route.query.id }).then((res) => {
-                        // isApply: -3.报名未开始,-2.报名且未通过审核,-1.未报名,1.已报名 2.报名审核通过,3.报名已结束
-                        // isProhibit: 判断是否在同一区域
-                        if (res.data.code === 200) {
-                            if (!res.data.appendInfo.isProhibit) {
-                                this.$message({
-                                    message: '报名人员与赛事不在同一区域！'
-                                })
+                if (
+                    (this.identity === 'student' &&
+                        this.detail.actorType === '1') ||
+                    (this.identity === 'teacher' &&
+                        (this.detail.actorType === '2' ||
+                            this.detail.actorType === '1'))
+                ) {
+                    requestIsApply({ matchId: this.$route.query.id }).then(
+                        res => {
+                            // isApply: -3.报名未开始,-2.报名且未通过审核,-1.未报名,1.已报名 2.报名审核通过,3.报名已结束
+                            // isProhibit: 判断是否在同一区域
+                            if (res.data.code === 200) {
+                                if (!res.data.appendInfo.isProhibit) {
+                                    this.$message({
+                                        message: '报名人员与赛事不在同一区域！'
+                                    })
+                                } else {
+                                    this.$router.push({
+                                        path: '/contest/myPlay/uploadWork',
+                                        query: {
+                                            id: this.$route.query.id,
+                                            type: this.$route.query.type
+                                        }
+                                    })
+                                }
                             } else {
-                                this.$router.push({ path: '/contest/myPlay/uploadWork', query: { id: this.$route.query.id, type: this.$route.query.type } })
+                                this.showMessage('info', res.data.msg, 2000)
                             }
-                        } else {
-                            this.showMessage('info', res.data.msg, 2000)
                         }
-                    })
+                    )
                 } else {
-                    this.showMessage('info', '温馨提示：您的身份不符合参赛要求，去欣赏参赛作品吧', 2000)
+                    this.showMessage(
+                        'info',
+                        '温馨提示：您的身份不符合参赛要求，去欣赏参赛作品吧',
+                        2000
+                    )
                 }
             } else {
                 this.$message({
@@ -216,7 +307,9 @@ export default {
     mounted() {
         this.getDetail()
         this.getDataList()
-        this.identity = this.$ls.get('userIdentity') ? this.$ls.get('userIdentity') : ''
+        this.identity = this.$ls.get('userIdentity')
+            ? this.$ls.get('userIdentity')
+            : ''
         if (Object.keys(this.detail).length) {
             this.init()
             this.getOnlineStep()
@@ -229,9 +322,14 @@ export default {
         }
     },
     filters: {
-        handleWorksDesc(txt = '', len = 50, sep = '...') { // 处理作品描述字段，字段包括HTML标签内容
+        handleWorksDesc(txt = '', len = 50, sep = '...') {
+            // 处理作品描述字段，字段包括HTML标签内容
             const reg = new RegExp('(.{' + len + '}).+')
-            return txt.replace(/<[^>]+>|\n|&nbsp;/gi, '').replace(reg, '$1' + sep) || ''
+            return (
+                txt
+                    .replace(/<[^>]+>|\n|&nbsp;/gi, '')
+                    .replace(reg, '$1' + sep) || ''
+            )
         }
     },
     props: {
@@ -242,7 +340,7 @@ export default {
     },
     watch: {
         detail: {
-            handler: function (val) {
+            handler: function(val) {
                 if (Object.keys(val).length) {
                     this.init()
                     this.getOnlineStep()
@@ -334,7 +432,7 @@ export default {
 <style lang='scss' scoped>
 @import '~@/assets/css/scss/vars.scss';
 .pt20 {
-  padding-top: 20px;
+    padding-top: 20px;
 }
 .p15 {
     padding: 15px;
@@ -344,10 +442,10 @@ export default {
     margin-top: 20px;
 }
 a.more {
-  color: #999999;
-  &:hover {
-    color: $theme-color;
-  }
+    color: #999999;
+    &:hover {
+        color: $theme-color;
+    }
 }
 #contestDetail {
     color: #333;
@@ -361,11 +459,11 @@ a.more {
             font-weight: 400;
         }
         .steps {
-          margin-bottom: 40px;
+            margin-bottom: 40px;
         }
         .article {
             color: #333;
-            word-spacing:0.1em;
+            word-spacing: 0.1em;
             line-height: 1.5;
             min-height: 300px;
             text-indent: 2em;
@@ -407,7 +505,7 @@ a.more {
                     margin-right: 8px;
                 }
                 i.hot-1 {
-                    background-color: #D00;
+                    background-color: #d00;
                 }
                 i.hot-2 {
                     background-color: #ff7200;

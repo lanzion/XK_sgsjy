@@ -245,9 +245,9 @@ export default {
                 certiNum: [
                     { validator: validateIDCode, trigger: 'change' }
                 ],
-                studentCode: [
-                    { required: true, validator: validateStudentCode, trigger: 'blur' }
-                ],
+                // studentCode: [
+                //     { required: true, validator: validateStudentCode, trigger: 'blur' }
+                // ],
                 schoolId: [
                     { required: true, message: '请选择所属学校', trigger: 'blur' }
                 ],

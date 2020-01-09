@@ -8,14 +8,21 @@ const requestWorksList = (options = {}, pageParam = {}) => xhr.post(`/maker/work
 const requestMatchActor = (options = {}, pageParam = {}) => xhr.post(`/maker/matchActor/selectApplyDetail`, options)
 
 // 指导老师列表
-const requestTeacherList = (options = {}) => xhr.post(`/maker/baseTeacher/selectPager`, options)
+const requestTeacherList = (options = {}) => xhr.post(`/maker/baseTeacher/page`, options)
 
 // 参赛成员列表
-const requestStudentList = (options = {}) => xhr.post(`/maker/baseStudent/selectPager`, options)
+const requestStudentList = (options = {}) => xhr.post(`/maker/baseStudent/page`, options)
+// // 指导老师列表
+// const requestTeacherList = (options = {}) => xhr.post(`/maker/baseTeacher/selectPager`, options)
+
+// // 参赛成员列表
+// const requestStudentList = (options = {}) => xhr.post(`/maker/baseStudent/selectPager`, options)
 
 // 上传作品
 const requestMatchWorksAdd = (options = {}) => xhr.post(`/maker/matchWorks/add`, options)
 
+// 作品附件列表查询（专家）
+const requestMatchExpertWorksEvaluation = (options = {}, pageParam = {}) => xhr.post(`maker/matchExpertWorksEvaluation/resourcePager?pageSize=${pageParam.pageSize}&pageNum=${pageParam.pageNum}`, options)
 // 我的作品 - 列表
 const requestMatchWorksList = (options = {}, pageParam = {}) => xhr.post(`/maker/matchWorks/selecMyWorktPager?pageSize=${pageParam.pageSize}&pageNum=${pageParam.pageNum}`, options)
 
@@ -29,7 +36,7 @@ const requestMatchWorksDel = (options = {}) => xhr.post(`/maker/matchWorks/delBy
 const requestRecordsList = (options = {}) => xhr.post(`/maker/matchExpertWorksEvaluation/selectMatchRecordsList`, options)
 
 // 竞赛项目 - 详情
-let requestContestItemDetail = (options = {}) => xhr.post(`/maker/matchProject/template/selectDetail`,options)
+let requestContestItemDetail = (options = {}) => xhr.post(`/maker/matchProject/template/selectDetail`, options)
 
 /*****************************************************************/
 // 线下竞赛
@@ -61,7 +68,8 @@ export {
     matchOfflineActorAdd,
     requestOfflineEnrollDetail,
     actorAddModify,
-    requestContestItemDetail
+    requestContestItemDetail,
+    requestMatchExpertWorksEvaluation
 }
 
 

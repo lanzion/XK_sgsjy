@@ -28,23 +28,23 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/kxsz':{
-        target:'http://192.168.2.93',
+      '/kxsz': {
+        target: 'http://192.168.2.93',
         // target:'http://192.168.2.117:8082',
-        changeOrigin:true,
-        pathRewrite:{'^/kxsz':'/kxsz'}
+        changeOrigin: true,
+        pathRewrite: { '^/kxsz': '/kxsz' }
       },
-      '/file':{
-        target:'http://192.168.2.93',
+      '/file': {
+        target: 'http://192.168.2.93',
         // target:'http://192.168.2.117:8082',
-        changeOrigin:true,
-        pathRewrite:{'^/file':'/file'}
+        changeOrigin: true,
+        pathRewrite: { '^/file': '/file' }
       },
-      '/preview':{
-        target:'http://192.168.2.93',
+      '/preview': {
+        target: 'http://192.168.2.93',
         // target:'http://192.168.2.117:8082',
-        changeOrigin:true,
-        pathRewrite:{'^/preview':'/preview'}
+        changeOrigin: true,
+        pathRewrite: { '^/preview': '/preview' }
       }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"

@@ -74,125 +74,132 @@ import offlineManageWorksDetail from 'View/contest/contest_manage/competition_ma
 Vue.use(Router)
 
 export default new Router({
-  // mode: 'history',
+    // mode: 'history',
     mode: 'hash',
 
-  // scrollBehavior() {
-  //   return { x: 0, y: 0 }
-  // },
+    // scrollBehavior() {
+    //   return { x: 0, y: 0 }
+    // },
     linkActiveClass: 'active',
     routes: [
         {
             path: '/',
-      // redirect: '/index',
+            // redirect: '/index',
         },
-    // {
-    //   path: '/index',
-    //   component: index,
-    //   meta: { background: false },
-    // },
+        // {
+        //   path: '/index',
+        //   component: index,
+        //   meta: { background: false },
+        // },
         {
             path: '/contest',
             component: contest,
             redirect: '/contest/detail',
             children: [
-        { path: 'detail', component: contest_detail },
-        { path: 'dynamic', component: contest_dynamic },
-        { path: 'works', component: competeWorks },
-        { path: 'awards', component: awardsWorks },
-        { path: 'awards/more', component: moreAwardsList },
-        { path: 'comment', component: contestComment },
-                { path: 'review',
+                { path: 'detail', component: contest_detail },
+                { path: 'dynamic', component: contest_dynamic },
+                { path: 'works', component: competeWorks },
+                { path: 'awards', component: awardsWorks },
+                { path: 'awards/more', component: moreAwardsList },
+                { path: 'comment', component: contestComment },
+                {
+                    path: 'review',
                     component: myReview,
                     redirect: '/contest/review/pending',
                     meta: { requireAuth: 'expert' },
                     children:
-                    [
-            { path: 'pending', component: reviewWorks },
-            { path: 'audited', component: reviewWorks },
-                        { path: 'pending/detail',
-                            component: worksDetail,
-                            redirect: '/contest/review/pending/detail/review',
-                            children:
-                            [
-                { path: 'comment', component: worksComment },
-                { path: 'review', component: worksReview }
-                            ]
-                        },
-                        { path: 'audited/detail',
-                            component: worksDetail,
-                            redirect: '/contest/review/audited/detail/review',
-                            children:
-                            [
-                { path: 'comment', component: worksComment },
-                { path: 'review', component: reviewDetail }
-                            ]
-                        }
-                    ]
+                        [
+                            { path: 'pending', component: reviewWorks },
+                            { path: 'audited', component: reviewWorks },
+                            {
+                                path: 'pending/detail',
+                                component: worksDetail,
+                                redirect: '/contest/review/pending/detail/review',
+                                children:
+                                    [
+                                        { path: 'comment', component: worksComment },
+                                        { path: 'review', component: worksReview }
+                                    ]
+                            },
+                            {
+                                path: 'audited/detail',
+                                component: worksDetail,
+                                redirect: '/contest/review/audited/detail/review',
+                                children:
+                                    [
+                                        { path: 'comment', component: worksComment },
+                                        { path: 'review', component: reviewDetail }
+                                    ]
+                            }
+                        ]
                 },
-                { path: 'manage',
+                {
+                    path: 'manage',
                     component: contestManage,
                     redirect: '/contest/manage/dynamic',
                     meta: { requireAuth: 'manage' },
                     children:
-                    [
-            { path: 'dynamic', component: contestManageDynamic },
-            { path: 'dynamicAdd', component: contestManageDynamicAdd },
-            { path: 'evaluate', component: evaluateSetting },
-            { path: 'member', component: contestMember },
-                        { path: 'works',
-                            component: contestWorks,
-                            redirect: '/contest/manage/works/pending',
-                            children:
-                            [
-                { path: 'pending', component: pendingWorks, meta: { type: 'pending' } },
-                // { path: 'pass', component: passWorks },
-                { path: 'pass', component: passWorks, meta: { type: 'pass' } },
-                { path: 'noPass', component: noPassWorks, meta: { type: 'noPass' } }
-                            ]
-                        },
-            { path: 'reviewRecord', component: worksReviewRecord, alias: '/contest/manage/works/reviewRecord' },
-            { path: 'audit', component: worksAudit, alias: '/contest/manage/works/audit' },
-            { path: 'quota', component: quotaList },
-            { path: 'expert', component: reviewExpert },
-            { path: 'expert/add', component: addExpert },
-            { path: 'expert/edit', component: addExpert },
-            { path: 'awards', component: awardList },
-                        { path: 'statistics',
-                            component: contestStatistics,
-                            redirect: '/contest/manage/statistics/awards',
-                            children:
-                            [
-                { path: 'awards', component: statAwards, meta: { type: 'awards' } },
-                { path: 'ranking', component: awardRanking, meta: { type: 'ranking' } },
-                { path: 'compete', component: statCompete, meta: { type: 'compete' } }
-                            ]
-                        },
-            { path: 'detail', component: scheduleDetail },
-            { path: 'entry', component: competitionManage },
-            { path: 'matchDetail', component: offlineManageWorksDetail, alias: '/contest/manage/entry/matchDetail' }
-                    ]
+                        [
+                            { path: 'dynamic', component: contestManageDynamic },
+                            { path: 'dynamicAdd', component: contestManageDynamicAdd },
+                            { path: 'evaluate', component: evaluateSetting },
+                            { path: 'member', component: contestMember },
+                            {
+                                path: 'works',
+                                component: contestWorks,
+                                redirect: '/contest/manage/works/pending',
+                                children:
+                                    [
+                                        { path: 'pending', component: pendingWorks, meta: { type: 'pending' } },
+                                        // { path: 'pass', component: passWorks },
+                                        { path: 'pass', component: passWorks, meta: { type: 'pass' } },
+                                        { path: 'noPass', component: noPassWorks, meta: { type: 'noPass' } }
+                                    ]
+                            },
+                            { path: 'reviewRecord', component: worksReviewRecord, alias: '/contest/manage/works/reviewRecord' },
+                            { path: 'audit', component: worksAudit, alias: '/contest/manage/works/audit' },
+                            { path: 'quota', component: quotaList },
+                            { path: 'expert', component: reviewExpert },
+                            { path: 'expert/add', component: addExpert },
+                            { path: 'expert/edit', component: addExpert },
+                            { path: 'awards', component: awardList },
+                            {
+                                path: 'statistics',
+                                component: contestStatistics,
+                                redirect: '/contest/manage/statistics/awards',
+                                children:
+                                    [
+                                        { path: 'awards', component: statAwards, meta: { type: 'awards' } },
+                                        { path: 'ranking', component: awardRanking, meta: { type: 'ranking' } },
+                                        { path: 'compete', component: statCompete, meta: { type: 'compete' } }
+                                    ]
+                            },
+                            { path: 'detail', component: scheduleDetail },
+                            { path: 'entry', component: competitionManage },
+                            { path: 'matchDetail', component: offlineManageWorksDetail, alias: '/contest/manage/entry/matchDetail' }
+                        ]
                 },
-                { path: 'myPlay',
+                {
+                    path: 'myPlay',
                     component: contest_myPlay,
                     redirect: '/contest/myPlay/uploadWork',
                     meta: { requireAuth: 'participant' },
                     children:
-                    [
-            { path: 'uploadWork', component: contest_myPlayUpload },
-            { path: 'myWorks', component: contest_myPlayWorks },
-                        {
-                            path: 'myWorks/detail',
-                            redirect: '/contest/myPlay/myWorks/detail/comment',
-                            component: contest_myPlayWorksDetail,
-                            children: [
-                { path: 'comment', component: worksComment },
-                { path: 'review', component: reviewDetail }
-                            ]
-                        }
-                    ]
+                        [
+                            { path: 'uploadWork', component: contest_myPlayUpload },
+                            { path: 'myWorks', component: contest_myPlayWorks },
+                            {
+                                path: 'myWorks/detail',
+                                redirect: '/contest/myPlay/myWorks/detail/comment',
+                                component: contest_myPlayWorksDetail,
+                                children: [
+                                    { path: 'comment', component: worksComment },
+                                    { path: 'review', component: reviewDetail }
+                                ]
+                            }
+                        ]
                 },
-        // 线下竞赛-报名参赛
+                // 线下竞赛-报名参赛
                 {
                     path: 'enroll',
                     name: 'enrollContest',
@@ -200,7 +207,7 @@ export default new Router({
                 }
             ]
         },
-    { path: '/dynamicDetail', component: contest_dynamicDetail, meta: { background: true } },
-    { path: '/worksDetail/:model', component: worksDetail }
+        { path: '/dynamicDetail', component: contest_dynamicDetail, meta: { background: true } },
+        { path: '/worksDetail/:model', component: worksDetail }
     ],
 })
